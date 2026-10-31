@@ -129,7 +129,13 @@ export default async function CountyPage({ params }: Props) {
           <li key={n}>{n}</li>
         ))}
       </ul>
-      {d.roster ? (
+      {d.contractJail ? (
+        <p>
+          {c.name} County doesn't run its own jail. People arrested here are held at the {d.contractJail}, so its roster
+          is where a recent {c.name} County arrest will show up. A roster won't show arrests made in other counties or
+          people taken straight to a state facility.
+        </p>
+      ) : d.roster ? (
         <p>
           A roster only covers people booked into the {c.name} County jail. If the arrest was made in another county, or
           the person was taken straight to a state facility, they will not appear here. City police departments in{" "}
