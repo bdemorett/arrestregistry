@@ -179,15 +179,17 @@ export default async function CountyPage({ params }: Props) {
         a person was never arrested.
       </p>
 
-      {d.warrants && (
+      {(d.warrants || d.warrantNotes) && (
         <>
           <h2>Warrant search</h2>
-          <p>
-            <span className="official">Official</span>
-            <a href={d.warrants.url} target="_blank" rel="noopener">
-              {d.warrants.label}
-            </a>
-          </p>
+          {d.warrants && (
+            <p>
+              <span className="official">Official</span>
+              <a href={d.warrants.url} target="_blank" rel="noopener">
+                {d.warrants.label}
+              </a>
+            </p>
+          )}
           {d.warrantNotes && <p>{d.warrantNotes}</p>}
         </>
       )}
