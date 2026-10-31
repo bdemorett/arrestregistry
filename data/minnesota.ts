@@ -8,7 +8,7 @@ export type Link = { label: string; url: string };
 export type CountyDetail = {
   verified: string; // YYYY-MM-DD the official pages were checked
   sheriffName: string; // agency name, e.g. "Hennepin County Sheriff's Office"
-  jailName: string;
+  jailName?: string;
   jailAddress?: string;
   jailPhone?: string;
   sheriffPhone?: string;
@@ -615,6 +615,200 @@ const details: Record<string, CountyDetail> = {
       "To leave a message for an inmate, call 320-818-0338. Visits are scheduled through jail administration on weekdays, 8 a.m. to 4 p.m.",
     ],
     sources: [{ label: "Benton County, Jail Division", url: "https://www.bentoncountymn.gov/220/Jail-Division" }],
+  },
+  Steele: {
+    verified: "2026-10-31",
+    sheriffName: "Steele County Sheriff's Office",
+    jailName: "Steele County Detention Center",
+    roster: {
+      label: "Steele County Sheriff's Office Inmate Roster (PDF)",
+      url: "https://www.steelecountymn.gov/Documents/Departments/Detention%20Center/Current%20Jail%20Roster/Inmate_Roster.pdf",
+    },
+    rosterNotes: ["The sheriff's office posts its current inmate roster as a PDF. Use Find in Page (Ctrl+F) to search for a name."],
+    otherLinks: [{ label: "Steele County Detention Center", url: "https://steelecountymn.gov/detention_center/index.php" }],
+    sources: [
+      {
+        label: "Steele County Sheriff's Office Inmate Roster",
+        url: "https://www.steelecountymn.gov/Documents/Departments/Detention%20Center/Current%20Jail%20Roster/Inmate_Roster.pdf",
+      },
+    ],
+  },
+  McLeod: {
+    verified: "2026-10-31",
+    sheriffName: "McLeod County Sheriff's Office",
+    jailName: "McLeod County Jail",
+    jailAddress: "830 11th Street East, Glencoe, MN 55336 (Courthouse and Law Enforcement Center)",
+    roster: { label: "McLeod County In Custody list", url: "http://www.co.mcleod.mn.us/ftp/Sheriff/In%20Custody/custody.html" },
+    rosterNotes: [
+      "The sheriff's office posts its In Custody list of people currently held at the jail.",
+      "The county notes that booking information is public data under Minn. Stat. § 13.85.",
+    ],
+    sources: [
+      {
+        label: "McLeod County Sheriff, In Custody List",
+        url: "https://www.mcleodcountymn.gov/government/sheriff_s_office/jail_information/in_custody_list.php",
+      },
+    ],
+  },
+  Freeborn: {
+    verified: "2026-10-31",
+    sheriffName: "Freeborn County Sheriff's Office",
+    jailName: "Freeborn County Jail",
+    roster: { label: "Freeborn County Jail Roster", url: "https://www.freeborncountymn.gov/438/Jail-Roster" },
+    rosterNotes: [
+      "The sheriff's office posts a jail roster document listing current inmates.",
+      "The jail also holds federal immigration detainees. For someone in ICE custody, use the ICE Online Detainee Locator, which also covers releases from the past 60 days.",
+    ],
+    otherLinks: [{ label: "ICE Online Detainee Locator", url: "https://locator.ice.gov" }],
+    sources: [{ label: "Freeborn County, Jail Roster", url: "https://www.freeborncountymn.gov/438/Jail-Roster" }],
+  },
+  Lyon: {
+    verified: "2026-10-31",
+    sheriffName: "Lyon County Sheriff's Office",
+    jailName: "Lyon County Jail",
+    jailAddress: "611 West Main Street, Marshall, MN 56258",
+    jailPhone: "507-929-6623",
+    roster: { label: "Lyon County Jail In Custody List", url: "https://jail.lyonco.org/custodylistLyon.rpt.html" },
+    rosterNotes: [
+      "Lists current inmates at the Lyon County Jail.",
+      "The roster updates automatically every 12 hours, so a very recent arrest may not show yet.",
+      "You can also search custody status and sign up for release notifications through Minnesota's free VINELink service.",
+    ],
+    otherLinks: [{ label: "Lyon County Jail Roster page", url: "https://www.lyoncountymn.gov/departments/sheriff/jail/lyon-county-jail-roster" }],
+    sources: [{ label: "Lyon County Jail, Contact Information", url: "https://lyonco.org/jail" }],
+  },
+  Carlton: {
+    verified: "2026-10-31",
+    sheriffName: "Carlton County Sheriff's Office",
+    jailName: "Carlton County Jail",
+    roster: { label: "Carlton County Jail Roster", url: "https://www.carltoncountymn.gov/274/Jail-Roster" },
+    rosterNotes: [
+      "The sheriff's office directs people to its Jail Roster page to check whether someone is in jail.",
+      "To reach a specific deputy during business hours (weekdays 8 a.m. to 4 p.m.), call 218-384-3236.",
+    ],
+    sources: [
+      { label: "Carlton County FAQ: How do I find out if someone is in jail?", url: "https://www.carltoncountymn.gov/FAQ.aspx?QID=126" },
+    ],
+  },
+  "Mille Lacs": {
+    verified: "2026-10-31",
+    sheriffName: "Mille Lacs County Sheriff's Office",
+    jailName: "Mille Lacs County Jail",
+    jailAddress: "640 3rd Street SE, Milaca, MN 56353",
+    sheriffPhone: "320-983-8250",
+    roster: { label: "Mille Lacs County In-Custody inmate locator", url: "https://incustody.co.mille-lacs.mn.us/InmateLocator/" },
+    rosterNotes: [
+      "The county's In-Custody Reports locator searches people currently held at the jail.",
+      "The jail is in the Sheriff's Office building. The west side lobby is open 8 a.m. to 4:30 p.m. After hours and on weekends, call 320-983-8245.",
+    ],
+    warrants: { label: "Mille Lacs County active warrant listing", url: "https://ftp.co.mille-lacs.mn.us/ActiveWarrantListing.htm" },
+    sources: [{ label: "Mille Lacs County, Inmate Information", url: "https://www.millelacs.mn.gov/2422/Inmate-Information" }],
+  },
+  Morrison: {
+    verified: "2026-10-31",
+    sheriffName: "Morrison County Sheriff's Office",
+    jailName: "Morrison County Jail",
+    jailAddress: "213 1st Avenue SE, Little Falls, MN 56345",
+    jailPhone: "320-632-2673",
+    roster: { label: "Morrison County current inmate list", url: "https://incustody.morrisoncountymn.gov" },
+    rosterNotes: ["The jail's current inmate list shows who is in custody now."],
+    otherLinks: [{ label: "Morrison County: Inmate services", url: "https://www.morrisoncountymn.gov/174/Inmate-Services" }],
+    sources: [{ label: "Morrison County, Jail", url: "https://www.morrisoncountymn.gov/173/Jail" }],
+  },
+  Nicollet: {
+    verified: "2026-10-31",
+    sheriffName: "Nicollet County Sheriff's Office",
+    jailName: "Nicollet County Jail",
+    jailAddress: "501 S. Minnesota Avenue, St. Peter, MN 56082",
+    sheriffPhone: "507-934-7100",
+    roster: { label: "Nicollet County jail roster", url: "http://roster.co.nicollet.mn.us" },
+    rosterNotes: [
+      "The sheriff's office links to its jail roster of people currently in custody.",
+      "The jail and dispatch center are staffed 24/7 and use the sheriff's office phone number.",
+    ],
+    sources: [{ label: "Nicollet County, Sheriff's Office", url: "https://www.nicolletcountymn.gov/240/Sheriffs-Office" }],
+  },
+  Pine: {
+    verified: "2026-10-31",
+    sheriffName: "Pine County Sheriff's Office",
+    jailName: "Pine County Jail",
+    jailAddress: "635 Northridge Dr. NW, Suite 130, Pine City, MN 55063",
+    jailPhone: "320-629-8400",
+    roster: { label: "Pine County Jail Roster (PDF)", url: "http://24.230.178.6/PCJ_Jail_Roster.pdf" },
+    rosterNotes: [
+      "The county's jail roster is a PDF. Use Find in Page (Ctrl+F) to search for a name.",
+      "There's a separate inmate message line at 320-322-1014.",
+    ],
+    sources: [{ label: "Pine County Jail", url: "https://www.pinecountymn.gov/departments/jail/index.php" }],
+  },
+  Becker: {
+    verified: "2026-10-31",
+    sheriffName: "Becker County Sheriff's Office",
+    jailName: "Becker County Jail",
+    rosterNotes: [
+      "Becker County doesn't post a public in-custody roster online. Contact the sheriff's office in Detroit Lakes to confirm whether someone is held.",
+      "The jail has 186 beds. Mail for inmates goes to Becker County Jail, PO Box 702, Detroit Lakes, MN 56502.",
+      "To leave a message for an inmate, call 218-325-0635.",
+    ],
+    otherLinks: [{ label: "Becker County Sheriff: Jail public services", url: "https://www.beckercountymn.gov/dept/sheriff/jail_public_services.aspx" }],
+    sources: [
+      { label: "Becker County Sheriff, Inmate Information", url: "https://www.beckercountymn.gov/dept/sheriff/jail_inmate_info.aspx" },
+      { label: "Becker County Sheriff", url: "https://www.beckercountymn.gov/dept/sheriff/" },
+    ],
+  },
+  Polk: {
+    verified: "2026-10-31",
+    sheriffName: "Polk County Sheriff's Office",
+    jailAddress: "600 Bruce Street, Crookston, MN 56716 (Sheriff's Office)",
+    sheriffPhone: "218-281-0431",
+    rosterNotes: [
+      "Polk County's sheriff's office doesn't post an in-custody roster on its website. Call 218-281-0431 to ask whether someone is in custody.",
+    ],
+    sources: [{ label: "Polk County, Sheriff's Office", url: "https://www.polkcountymn.gov/221/Sheriffs-Office" }],
+  },
+  Cass: {
+    verified: "2026-10-31",
+    sheriffName: "Cass County Sheriff's Office",
+    jailName: "Cass County Jail",
+    jailPhone: "218-547-7361",
+    roster: { label: "Cass County In-Custody Report (PDF)", url: "https://cassweb.casscountymn.gov/sheriff/jail/Jail_Register_Website.pdf" },
+    rosterNotes: [
+      "The jail register PDF lists current inmates with age and city. Use Find in Page (Ctrl+F) to search for a name.",
+      "To leave a message for an inmate, call 218-610-0770.",
+    ],
+    warrants: { label: "Cass County warrants (PDF)", url: "https://cassweb.casscountymn.gov/sheriff/jail/Warrants_Website.pdf" },
+    warrantNotes: "The warrant list updates once a day at 7 a.m.",
+    sources: [{ label: "Cass County, Detention Center / Jail", url: "https://www.casscountymn.gov/1321/Detention-Center-Jail" }],
+  },
+  "Le Sueur": {
+    verified: "2026-10-31",
+    sheriffName: "Le Sueur County Sheriff's Office",
+    jailName: "Le Sueur County Jail",
+    jailPhone: "507-419-0321",
+    roster: { label: "Le Sueur County Jail Roster", url: "https://www.lesueurcounty.gov/801/Jail-Roster" },
+    rosterNotes: ["The county runs its own 80-bed jail and posts a roster of current inmates."],
+    otherLinks: [{ label: "Le Sueur County Most Wanted", url: "https://www.lesueurcounty.gov/336/Most-Wanted" }],
+    sources: [{ label: "Le Sueur County, Jail", url: "https://www.lesueurcounty.gov/330/Jail" }],
+  },
+  Meeker: {
+    verified: "2026-10-31",
+    sheriffName: "Meeker County Sheriff's Office",
+    jailName: "Meeker County Jail",
+    jailAddress: "326 N Ramsey Avenue, Litchfield, MN 55355",
+    sheriffPhone: "320-693-5400",
+    roster: { label: "Meeker County Daily Jail Roster (PDF)", url: "https://www.meekercountymn.gov/DocumentCenter/View/721" },
+    rosterNotes: ["The sheriff's office posts a daily jail roster PDF with booking photos. Use Find in Page (Ctrl+F) to search for a name."],
+    otherLinks: [{ label: "Meeker County: Writing to inmates", url: "https://www.meekercountymn.gov/315/Writing-to-Inmates" }],
+    sources: [{ label: "Meeker County, Sheriff", url: "https://www.meekercountymn.gov/217/Sheriff" }],
+  },
+  Hubbard: {
+    verified: "2026-10-31",
+    sheriffName: "Hubbard County Sheriff's Office",
+    jailName: "Hubbard County Jail",
+    roster: { label: "Hubbard County Inmate Locator", url: "https://prophoenix.co.hubbard.mn.us/InmateLocator/" },
+    rosterNotes: ["The county's inmate locator searches people currently held at the Hubbard County Jail in Park Rapids."],
+    otherLinks: [{ label: "Hubbard County Sheriff: Bail", url: "http://www.co.hubbard.mn.us/departments/sheriff/corrections_communications/bail.php" }],
+    sources: [{ label: "Hubbard County Inmate Locator", url: "https://prophoenix.co.hubbard.mn.us/InmateLocator/" }],
   },
 };
 

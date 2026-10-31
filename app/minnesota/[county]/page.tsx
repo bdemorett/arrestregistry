@@ -80,8 +80,12 @@ export default async function CountyPage({ params }: Props) {
         <dl>
           <dt>Sheriff</dt>
           <dd>{d.sheriffName}</dd>
-          <dt>Jail</dt>
-          <dd>{d.jailName}</dd>
+          {d.jailName && (
+            <>
+              <dt>Jail</dt>
+              <dd>{d.jailName}</dd>
+            </>
+          )}
           {d.jailAddress && (
             <>
               <dt>Address</dt>
@@ -125,12 +129,20 @@ export default async function CountyPage({ params }: Props) {
           <li key={n}>{n}</li>
         ))}
       </ul>
-      <p>
-        A roster only covers people booked into the {c.name} County jail. If the arrest was made in another county, or the
-        person was taken straight to a state facility, they will not appear here. City police departments in {c.name}{" "}
-        County generally book arrestees into the county jail, so the sheriff's roster is the right first stop for most
-        local arrests.
-      </p>
+      {d.roster ? (
+        <p>
+          A roster only covers people booked into the {c.name} County jail. If the arrest was made in another county, or
+          the person was taken straight to a state facility, they will not appear here. City police departments in{" "}
+          {c.name} County generally book arrestees into the county jail, so the sheriff's roster is the right first stop
+          for most local arrests.
+        </p>
+      ) : (
+        <p>
+          Without an online roster, the phone is the fastest way to confirm a recent arrest. Have the person's full name
+          and date of birth ready. If charges were filed, the case will also show up in Minnesota Court Records Online,
+          covered in the next step.
+        </p>
+      )}
 
       <h2>2. Search the court case</h2>
       <p>
