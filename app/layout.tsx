@@ -1,0 +1,69 @@
+import type { Metadata, Viewport } from "next";
+import Link from "next/link";
+import "./globals.css";
+import Analytics from "@/components/Analytics";
+import ClickTracker from "@/components/ClickTracker";
+import { site } from "@/lib/site";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: { default: "Arrest Registry: How to Find Arrest, Jail and Court Records", template: "%s | Arrest Registry" },
+  description: site.tagline,
+  openGraph: { siteName: site.name, type: "website", locale: "en_US" },
+  robots: { index: true, follow: true },
+  icons: { icon: "/favicon.svg" },
+  verification: {
+    google: site.gscVerification || undefined,
+    other: site.bingVerification ? { "msvalidate.01": site.bingVerification } : undefined,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f4ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#14171c" },
+  ],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <header className="site-header">
+          <div className="wrap header-inner">
+            <Link href="/" className="logo">
+              <span className="logo-mark" aria-hidden>
+                AR
+              </span>
+              Arrest Registry
+            </Link>
+            <nav className="nav">
+              <Link href="/minnesota/">Minnesota</Link>
+              <Link href="/guides/">Guides</Link>
+              <Link href="/about/">About</Link>
+            </nav>
+          </div>
+        </header>
+        <main className="wrap">{children}</main>
+        <footer className="site-footer">
+          <div className="wrap">
+            <p>
+              Arrest Registry is an independent guide. We are not a government agency, we do not host arrest records or
+              booking photos, and we are not a consumer reporting agency. Always confirm information with the official
+              source.
+            </p>
+            <p className="footer-links">
+              <Link href="/about/">About</Link>
+              <Link href="/affiliate-disclosure/">Affiliate disclosure</Link>
+              <Link href="/privacy/">Privacy</Link>
+              <Link href="/contact/">Contact</Link>
+            </p>
+            <p className="muted">© {new Date().getFullYear()} {site.owner}</p>
+          </div>
+        </footer>
+        <Analytics />
+        <ClickTracker />
+      </body>
+    </html>
+  );
+}

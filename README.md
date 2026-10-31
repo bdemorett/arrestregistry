@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# arrestregistry.com
 
-## Getting Started
+Next.js (App Router) static site. County guides for finding arrest, jail, and court records from official sources.
 
-First, run the development server:
+## Run locally
 
-```bash
+```
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy (Vercel)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a GitHub repo (e.g. `bdemorett/arrestregistry`) and push this folder.
+2. In Vercel, under the `beforeyoumovethere` team: Add New > Project > import the repo. Framework auto-detects as Next.js.
+3. Add environment variables (Settings > Environment Variables), then redeploy:
+   - `NEXT_PUBLIC_GA_ID` = your GA4 measurement ID (G-XXXXXXXXXX)
+   - `NEXT_PUBLIC_AFFILIATE_URL` / `NEXT_PUBLIC_AFFILIATE_NAME` once an affiliate program approves you (the CTA stays hidden until then)
+   - `NEXT_PUBLIC_GSC_VERIFICATION` only if you use the HTML-tag method instead of DNS
+4. Settings > Domains: add `arrestregistry.com` and `www.arrestregistry.com`. Set the apex as primary; the www host 301s to the apex in `next.config.mjs`.
+5. At Namecheap (or wherever the domain is registered), add the DNS records Vercel shows.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Google Analytics 4
 
-## Learn More
+1. analytics.google.com > Admin > Create property "Arrest Registry", time zone Central.
+2. Data streams > Web > `https://arrestregistry.com`. Copy the measurement ID into `NEXT_PUBLIC_GA_ID`.
+3. Custom events sent by the site:
+   - `affiliate_click` (param `placement`): mark as a key event in Admin > Events.
+   - `official_link_click` (param `link_domain`): shows which official tools people use.
 
-To learn more about Next.js, take a look at the following resources:
+## Google Search Console
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. search.google.com/search-console > Add property > **Domain** > `arrestregistry.com`.
+2. Copy the TXT record and add it at your DNS host. Verify.
+3. Sitemaps > submit `https://arrestregistry.com/sitemap.xml`.
+4. URL Inspection > request indexing for `/minnesota/` and each county page.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Bing Webmaster Tools: import the property from Search Console, then submit the same sitemap.
 
-## Deploy on Vercel
+## Adding counties
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Everything lives in `data/minnesota.ts`. A county page is generated, linked, and added to the sitemap only when it has a `detail` entry.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For each county, verify on the sheriff's official site:
+- jail name, address, phone
+- roster/inmate search URL and what it shows (how long after release, update frequency)
+- warrant search URL if one exists
+- booking photo policy page if one exists
+
+Set `verified` to the date you checked. Add the official pages to `sources`.
+
+Published so far (verified 2026-10-29): Hennepin, Ramsey, Anoka, Dakota, Washington.
