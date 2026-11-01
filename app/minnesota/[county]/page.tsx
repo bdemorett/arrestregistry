@@ -131,9 +131,11 @@ export default async function CountyPage({ params }: Props) {
       </ul>
       {d.contractJail ? (
         <p>
-          {c.name} County doesn't run its own jail. People arrested here are held at the {d.contractJail}, so its roster
-          is where a recent {c.name} County arrest will show up. A roster won't show arrests made in other counties or
-          people taken straight to a state facility.
+          {c.name} County doesn't run its own jail. People arrested here are held at the {d.contractJail}
+          {d.roster
+            ? `, so its roster is where a recent ${c.name} County arrest will show up.`
+            : ", so contact that facility to confirm whether someone is being held."}{" "}
+          If charges were filed, the case will also show up in Minnesota Court Records Online, covered in the next step.
         </p>
       ) : d.roster ? (
         <p>

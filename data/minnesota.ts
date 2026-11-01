@@ -1229,6 +1229,88 @@ const details: Record<string, CountyDetail> = {
     rosterNotes: ["Traverse County's Law Enforcement Center and jail opened in 2007 and holds up to 11 people."],
     sources: [{ label: "Traverse County, Sheriff", url: "https://traversecountymn.gov/departments/departments/sheriff/" }],
   },
+  Pennington: {
+    verified: "2026-10-31",
+    sheriffName: "Pennington County Sheriff's Office",
+    jailName: "Pennington County Corrections (Jail)",
+    jailAddress: "102 1st Street West, Thief River Falls, MN 56701",
+    jailPhone: "218-416-7097",
+    sheriffPhone: "218-681-6161",
+    roster: { label: "Pennington County In-Custody Search", url: "https://incustodysearch.penningtonsheriff.org/" },
+    rosterNotes: [
+      "The sheriff's office runs an in-custody search for people currently held at the jail.",
+      "The sheriff's office asks that inmate questions go to the corrections line, 218-416-7097. To leave a voicemail for an inmate, call 218-416-1120.",
+    ],
+    sources: [{ label: "Pennington County Sheriff, Jail Contacts", url: "https://www.penningtonsheriff.org/index.php/71-jail/jail-contacts" }],
+  },
+  Koochiching: {
+    verified: "2026-10-31",
+    sheriffName: "Koochiching County Sheriff's Office",
+    jailName: "Koochiching County Jail",
+    sheriffPhone: "218-283-4416",
+    roster: { label: "Koochiching County Jail (jail roster)", url: "https://www.koochiching.gov/183/Jail" },
+    rosterNotes: [
+      "The county's Jail page links to the Koochiching County Jail Roster.",
+      "The sheriff's non-emergency and dispatch line is 218-283-4416.",
+    ],
+    sources: [{ label: "Koochiching County, Law Enforcement Center", url: "https://www.koochiching.gov/179/Law-Enforcement-Center" }],
+  },
+  "Red Lake": {
+    verified: "2026-10-31",
+    sheriffName: "Red Lake County Sheriff's Office",
+    contractJail: "Tri-County Community Correctional Facility in Crookston",
+    jailAddress: "124 Langevin Ave, Red Lake Falls, MN 56750 (Courthouse)",
+    rosterNotes: [
+      "Red Lake County holds inmates at the Tri-County Community Correctional Facility in Crookston.",
+      "For questions about an inmate, transfers, or visits, call the facility at 218-470-8100, option 3.",
+    ],
+    sources: [{ label: "Red Lake County Sheriff FAQ", url: "https://www.redlakecounty.gov/departments/sheriff/frequently_asked_questions.php" }],
+  },
+  Wilkin: {
+    verified: "2026-10-31",
+    sheriffName: "Wilkin County Sheriff's Office",
+    jailName: "Wilkin County Jail",
+    jailAddress: "515 Dacotah Ave, Breckenridge, MN 56520",
+    jailPhone: "218-643-1205",
+    roster: { label: "Wilkin County In Custody Report", url: "https://co.wilkin.mn.us/jail/" },
+    rosterNotes: [
+      "The In Custody Report shows the date and time it was generated at the top. When we checked, it hadn't been refreshed in several weeks, so call the jail at 218-643-1205 to confirm current custody.",
+    ],
+    sources: [{ label: "Wilkin County Jail", url: "https://wilkincounty.gov/countyjail" }],
+  },
+  Swift: {
+    verified: "2026-10-31",
+    sheriffName: "Swift County Sheriff's Office",
+    jailName: "Swift County Jail",
+    jailAddress: "301 14th Street North, Suite 4, Benson, MN 56215 (Law Enforcement Center)",
+    sheriffPhone: "320-843-3133",
+    roster: { label: "Swift County In Custody List", url: "https://mail-se.co.swift.mn.us/jail/custody.html" },
+    rosterNotes: ["The sheriff's office runs the county jail and links to its In Custody list."],
+    sources: [{ label: "Swift County, Sheriff", url: "https://swiftcounty.gov/sheriff" }],
+  },
+  "Lac qui Parle": {
+    verified: "2026-10-31",
+    sheriffName: "Lac qui Parle County Sheriff's Office",
+    jailName: "Lac qui Parle County Jail",
+    jailAddress: "911 8th Ave, Madison, MN 56256 (Government Center)",
+    sheriffPhone: "320-598-3720",
+    roster: { label: "Lac qui Parle County In Custody list", url: "https://mail.lqpco.com/letg/custody.html" },
+    rosterNotes: [
+      "The sheriff's office runs the county jail and links to its In Custody list.",
+      "Visiting hours are Tuesday through Thursday 1 to 4 p.m., and Friday 7 to 8 p.m.",
+    ],
+    sources: [{ label: "Lac qui Parle County, Sheriff's Office", url: "https://www.lqpcomn.gov/193/Sheriffs-Office" }],
+  },
+  Norman: {
+    verified: "2026-10-31",
+    sheriffName: "Norman County Sheriff's Office",
+    jailAddress: "15 2nd Avenue East, Ada, MN 56510 (Sheriff's Office)",
+    sheriffPhone: "218-784-7114",
+    rosterNotes: [
+      "Norman County doesn't post an online in-custody search. Call the sheriff's office at 218-784-7114 to ask whether someone is being held.",
+    ],
+    sources: [{ label: "Norman County, Sheriff's Office", url: "https://www.normanmn.gov/departments/sheriff_s_office.php" }],
+  },
 };
 
 export const slugify = (s: string) =>
