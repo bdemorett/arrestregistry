@@ -102,7 +102,7 @@ export default function Page() {
           <a href={mn.mcro.url} target="_blank" rel="noopener">
             MCRO
           </a>{" "}
-          to see the actual outcome.
+          to see the actual outcome. Open cases only come up by case number, not by name.
         </li>
         <li>Match on date of birth, not just name. Common names produce false matches constantly.</li>
       </ol>

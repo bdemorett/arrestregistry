@@ -51,7 +51,7 @@ export default function MinnesotaPage() {
                 (courts)
               </td>
               <td>Charges filed, hearings, outcomes, statewide</td>
-              <td>Arrests where no charges were filed; expunged cases</td>
+              <td>Pending cases in a name search (need the case number); uncharged arrests; expunged cases</td>
             </tr>
             <tr>
               <td>
@@ -68,7 +68,8 @@ export default function MinnesotaPage() {
 
       <h3>County jail rosters</h3>
       <p>
-        Each of Minnesota's 87 sheriffs runs the county jail, and most post a roster of who is in custody. Rosters are the
+        Most of Minnesota's 87 sheriffs run a county jail, and most post a roster of who is in custody. A few small
+        counties board inmates in a neighboring county's jail instead. Rosters are the
         fastest way to confirm a recent arrest, but they are short-lived. Ramsey County, for example, removes a record five
         days after release, and Hennepin County shows releases from the past seven days. Pick a county below for its roster
         link and details.
@@ -77,8 +78,9 @@ export default function MinnesotaPage() {
       <h3>Minnesota Court Records Online (MCRO)</h3>
       <p>
         MCRO is the Judicial Branch's free search of state district court records. You can search cases by name, look up
-        upcoming hearings, and download public documents if you have the case number. Every district courthouse also has
-        public terminals that search records statewide.
+        upcoming hearings, and download public documents if you have the case number. One catch: pending criminal cases
+        don't come up in a name search, only cases that ended in a conviction, so an open case needs the case number. Every
+        district courthouse also has public terminals that search records statewide and show more than the website.
       </p>
 
       <h3>BCA Public Criminal History Search</h3>

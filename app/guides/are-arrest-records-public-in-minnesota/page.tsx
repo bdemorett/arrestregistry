@@ -42,7 +42,8 @@ export default function Page() {
           <a href={mn.mcro.url} target="_blank" rel="noopener">
             Minnesota Court Records Online
           </a>
-          , including older cases, unless a judge seals or expunges them.
+          , including older cases, unless a judge seals or expunges them. Online name searches only return criminal cases
+          that ended in a conviction, so an open case needs the case number or a courthouse terminal.
         </li>
         <li>
           <strong>Arrests without a conviction are private</strong> in the state's criminal history system run by the Bureau
@@ -116,7 +117,7 @@ export default function Page() {
           <a href={mn.mcro.url} target="_blank" rel="noopener">
             MCRO
           </a>{" "}
-          by name to see charges, hearings, and how the case ended.
+          by name to see convictions, or by case number for an open case, including charges, hearings, and outcome.
         </li>
         <li>
           Run the{" "}

@@ -135,7 +135,7 @@ export default async function CountyPage({ params }: Props) {
           {d.roster
             ? `, so its roster is where a recent ${c.name} County arrest will show up.`
             : ", so contact that facility to confirm whether someone is being held."}{" "}
-          If charges were filed, the case will also show up in Minnesota Court Records Online, covered in the next step.
+          If charges were filed, the court case is the next place to look.
         </p>
       ) : d.roster ? (
         <p>
@@ -147,8 +147,7 @@ export default async function CountyPage({ params }: Props) {
       ) : (
         <p>
           Without an online roster, the phone is the fastest way to confirm a recent arrest. Have the person's full name
-          and date of birth ready. If charges were filed, the case will also show up in Minnesota Court Records Online,
-          covered in the next step.
+          and date of birth ready. If charges were filed, the court case is the next place to look.
         </p>
       )}
 
@@ -177,8 +176,10 @@ export default async function CountyPage({ params }: Props) {
         </li>
       </ul>
       <p>
-        If you can't find something online, the public access terminals at the courthouse in {c.seat} search statewide
-        records and can show more than the website does.
+        One big limit: a <strong>pending criminal case won't come up when you search the defendant's name</strong> online.
+        Name searches only find criminal cases that ended in a conviction. For an open case, search by case number (it's on
+        the citation or charging paperwork), or use the public access terminals at the courthouse in {c.seat}, which search
+        statewide records and show more than the website does.
       </p>
 
       <h2>3. Check conviction history</h2>
@@ -263,6 +264,26 @@ export default async function CountyPage({ params }: Props) {
           </ul>
         </>
       )}
+
+      <h2>Helpful guides</h2>
+      <div className="cards">
+        <Link className="card" href="/guides/find-out-if-someone-is-in-jail-minnesota/">
+          <strong>Find someone in jail</strong>
+          <span>Rosters, state prison, federal and ICE custody</span>
+        </Link>
+        <Link className="card" href="/guides/jail-roster-terms-glossary/">
+          <strong>Jail roster terms</strong>
+          <span>What ROR, hold, Huber and other terms mean</span>
+        </Link>
+        <Link className="card" href="/guides/how-bail-works-minnesota/">
+          <strong>How bail works</strong>
+          <span>Release options and how fast someone sees a judge</span>
+        </Link>
+        <Link className="card" href="/guides/check-for-warrant-minnesota/">
+          <strong>Check for a warrant</strong>
+          <span>County lists and what to do next</span>
+        </Link>
+      </div>
 
       <section className="faq">
         <h2>Common questions</h2>
