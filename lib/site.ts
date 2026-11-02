@@ -11,7 +11,7 @@ export const site = {
   affiliateUrl: process.env.NEXT_PUBLIC_AFFILIATE_URL || "",
   affiliateName: process.env.NEXT_PUBLIC_AFFILIATE_NAME || "",
   // Bump when content is reviewed; shown on pages as "Last reviewed".
-  lastReviewed: "2026-10-31",
+  lastReviewed: "2026-11-01",
 };
 
 export const formatDate = (iso: string) =>

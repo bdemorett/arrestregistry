@@ -54,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </p>
             <p className="footer-links">
               <Link href="/about/">About</Link>
+              <Link href="/methodology/">How we verify</Link>
               <Link href="/affiliate-disclosure/">Affiliate disclosure</Link>
               <Link href="/privacy/">Privacy</Link>
               <Link href="/contact/">Contact</Link>

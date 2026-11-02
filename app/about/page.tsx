@@ -37,7 +37,7 @@ export default function About() {
       <p>
         We build each county page from the sheriff's office, the Minnesota Judicial Branch, the Bureau of Criminal
         Apprehension, and state statutes. We only publish a county once its links and details are confirmed on those
-        official pages. If something has changed, <Link href="/contact/">tell us</Link> and we'll fix it.
+        official pages. Read the full <Link href="/methodology/">verification process</Link>. If something has changed, <Link href="/contact/">tell us</Link> and we'll fix it.
       </p>
 
       <h2>How we make money</h2>

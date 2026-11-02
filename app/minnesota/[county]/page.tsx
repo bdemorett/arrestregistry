@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
+import { courtSources, mnCourts } from "@/data/mnCourts";
 import { districtCounties, districtName, getCounty, publishedCounties } from "@/data/minnesota";
 import { mn } from "@/lib/mnResources";
 import { formatDate, site } from "@/lib/site";
@@ -21,8 +22,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { county } = await params;
   const c = getCounty(county);
   if (!c?.detail) return {};
-  const title = `${c.name} County, MN Arrest Records & Jail Roster Lookup`;
-  const description = `How to check the ${c.name} County jail roster, search court cases, and look up conviction records in Minnesota using official, free sources.`;
+  const d = c.detail;
+  const title = d.roster
+    ? `${c.name} County, MN Jail Roster & Arrest Records Lookup`
+    : `${c.name} County, MN Arrest Records: Jail, Court & Sheriff Contacts`;
+  const description = d.roster
+    ? `Official ${c.name} County jail roster link, how long records stay up, sheriff and courthouse contacts, and how to search court cases and convictions in Minnesota.`
+    : `${c.name} County doesn't post an online jail roster. Here's who to call, where the courthouse is, and how to search court cases and convictions for free.`;
   return {
     title,
     description,
@@ -31,32 +37,46 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+const ext = (url: string, text: string) => (
+  <a href={url} target="_blank" rel="noopener">
+    {text}
+  </a>
+);
+
 export default async function CountyPage({ params }: Props) {
   const { county } = await params;
   const c = getCounty(county);
   if (!c?.detail) notFound();
   const d = c.detail;
+  const court = mnCourts[c.name];
   const neighbors = districtCounties(c.district).filter((n) => n.slug !== c.slug);
   const path = `/minnesota/${c.slug}/`;
+  const contactPhone = d.jailPhone || d.sheriffPhone;
 
   const faqs: { q: string; a: string }[] = [
     {
       q: `How do I find out if someone is in the ${c.name} County jail?`,
-      a: d.roster
-        ? `Use the ${d.roster.label} published by the ${d.sheriffName}. ${d.rosterNotes[0]}${d.jailPhone ? ` You can also call the jail at ${d.jailPhone}.` : ""}`
-        : `Contact the ${d.sheriffName}${d.jailPhone ? ` at ${d.jailPhone}` : ""}.`,
+      a: d.contractJail
+        ? `${c.name} County doesn't run its own jail. People arrested there are held at the ${d.contractJail}. ${d.rosterNotes[d.rosterNotes.length - 1]}`
+        : d.roster
+          ? `Check the ${d.roster.label}, published by the ${d.sheriffName}.${contactPhone ? ` To confirm, call ${d.jailPhone ? "the jail" : "the sheriff's office"} at ${contactPhone}.` : ""}`
+          : `${c.name} County doesn't post an online roster.${contactPhone ? ` Call ${d.jailPhone ? "the jail" : "the sheriff's office"} at ${contactPhone}` : ` Contact the ${d.sheriffName}`} with the person's full name and date of birth.`,
     },
+    ...(court
+      ? [
+          {
+            q: `Where is the ${c.name} County courthouse?`,
+            a: `${court.name}, ${court.address}.${court.phone ? ` The court's main number is ${court.phone}.` : ""} It's part of Minnesota's ${districtName(c.district)}.`,
+          },
+        ]
+      : []),
     {
-      q: `Are ${c.name} County arrest records public?`,
-      a: `Jail booking information is public while it is posted on the county roster, and court case records are public through Minnesota Court Records Online. Arrests that did not lead to a conviction are not part of the public criminal history the state Bureau of Criminal Apprehension releases.`,
-    },
-    {
-      q: `Can I see old convictions from ${c.name} County?`,
-      a: `The BCA's free public search shows a conviction for 15 years after the sentence is completed. District court records in MCRO can show older cases, unless a record was expunged or sealed.`,
-    },
-    {
-      q: `Which court handles criminal cases in ${c.name} County?`,
-      a: `${c.name} County District Court, part of Minnesota's ${districtName(c.district)}. The main courthouse is in ${c.seat}, the county seat.`,
+      q: `Does ${c.name} County post a warrant list?`,
+      a: d.warrants
+        ? `Yes. The ${d.warrants.label} is published online. Lists can lag, so confirm with the sheriff's office.`
+        : d.warrantNotes
+          ? d.warrantNotes
+          : `Not online that we could find. Call the ${d.sheriffName}${d.sheriffPhone ? ` at ${d.sheriffPhone}` : ""} to ask about a warrant.`,
     },
   ];
 
@@ -68,15 +88,18 @@ export default async function CountyPage({ params }: Props) {
           { name: `${c.name} County`, href: path },
         ]}
       />
-      <h1>How to Look Up Arrest Records in {c.name} County, Minnesota</h1>
+      <p className="muted">Independent guide. Not a government website.</p>
+      <h1>{c.name} County, Minnesota: Jail Roster and Arrest Records</h1>
       <p className="lede">
-        There is no single place to see every arrest in {c.name} County. You check three official sources, each covering a
-        different stage: the jail roster for recent bookings, the courts for charges and outcomes, and the state for
-        convictions. All three are free.
+        {d.contractJail
+          ? `${c.name} County boards inmates at the ${d.contractJail}. Here's where to check custody, who to call, and how to find the court case.`
+          : d.roster
+            ? `The ${d.sheriffName} posts an online roster of who's in the ${d.jailName ?? "county jail"}. Here's how to use it, what it covers, and where to look once a case reaches court.`
+            : `${c.name} County doesn't post an online jail roster, so the phone is your fastest route. Here's who to call and how to find the court case.`}
       </p>
-      <p className="muted">Last reviewed {formatDate(d.verified)}</p>
+      <p className="muted">Last checked against official sources {formatDate(d.verified)}</p>
 
-      <section className="facts" aria-label={`${c.name} County quick facts`}>
+      <section className="facts" aria-label={`${c.name} County contacts`}>
         <dl>
           <dt>Sheriff</dt>
           <dd>{d.sheriffName}</dd>
@@ -84,6 +107,12 @@ export default async function CountyPage({ params }: Props) {
             <>
               <dt>Jail</dt>
               <dd>{d.jailName}</dd>
+            </>
+          )}
+          {d.contractJail && (
+            <>
+              <dt>Inmates held at</dt>
+              <dd>{d.contractJail}</dd>
             </>
           )}
           {d.jailAddress && (
@@ -108,182 +137,116 @@ export default async function CountyPage({ params }: Props) {
               </dd>
             </>
           )}
-          <dt>County seat</dt>
-          <dd>{c.seat}</dd>
+          {court && (
+            <>
+              <dt>Courthouse</dt>
+              <dd>
+                {court.name}
+                <br />
+                {court.address}
+              </dd>
+            </>
+          )}
+          {court?.phone && (
+            <>
+              <dt>Court phone</dt>
+              <dd>
+                <a href={`tel:${court.phone}`}>{court.phone}</a>
+              </dd>
+            </>
+          )}
           <dt>Court district</dt>
           <dd>{districtName(c.district)}</dd>
         </dl>
       </section>
 
-      <h2>1. Check whether someone is in jail right now</h2>
-      {d.roster ? (
+      <h2>Check whether someone is in custody</h2>
+      {d.roster && (
         <p>
           <span className="official">Official</span>
-          <a href={d.roster.url} target="_blank" rel="noopener">
-            {d.roster.label}
-          </a>
+          {ext(d.roster.url, d.roster.label)}
         </p>
-      ) : null}
+      )}
       <ul>
         {d.rosterNotes.map((n) => (
           <li key={n}>{n}</li>
         ))}
       </ul>
-      {d.contractJail ? (
-        <p>
-          {c.name} County doesn't run its own jail. People arrested here are held at the {d.contractJail}
-          {d.roster
-            ? `, so its roster is where a recent ${c.name} County arrest will show up.`
-            : ", so contact that facility to confirm whether someone is being held."}{" "}
-          If charges were filed, the court case is the next place to look.
-        </p>
-      ) : d.roster ? (
-        <p>
-          A roster only covers people booked into the {c.name} County jail. If the arrest was made in another county, or
-          the person was taken straight to a state facility, they will not appear here. City police departments in{" "}
-          {c.name} County generally book arrestees into the county jail, so the sheriff's roster is the right first stop
-          for most local arrests.
-        </p>
-      ) : (
-        <p>
-          Without an online roster, the phone is the fastest way to confirm a recent arrest. Have the person's full name
-          and date of birth ready. If charges were filed, the court case is the next place to look.
+      {!d.contractJail && d.roster && (
+        <p className="muted">
+          The roster only covers people booked into this jail. Arrests in other counties, or people sent straight to state
+          prison, won't appear. See <Link href="/guides/find-out-if-someone-is-in-jail-minnesota/">how to find someone in custody</Link>{" "}
+          for the other places to check.
         </p>
       )}
-
-      <h2>2. Search the court case</h2>
-      <p>
-        <span className="official">Official</span>
-        <a href={mn.mcro.url} target="_blank" rel="noopener">
-          {mn.mcro.label}
-        </a>
-      </p>
-      <p>
-        Once charges are filed, the case moves to {c.name} County District Court. MCRO is the Minnesota Judicial Branch's free
-        statewide search. It covers {c.name} County along with every other district court in the state, so one search finds
-        cases filed anywhere in Minnesota.
-      </p>
-      <ul>
-        <li>
-          <strong>Case Search</strong> finds cases by name or case number and shows the register of actions: charges,
-          hearings, and how the case ended.
-        </li>
-        <li>
-          <strong>Hearing Search</strong> shows upcoming court dates.
-        </li>
-        <li>
-          <strong>Document Search</strong> pulls public filings, but only when you have the case number.
-        </li>
-      </ul>
-      <p>
-        One big limit: a <strong>pending criminal case won't come up when you search the defendant's name</strong> online.
-        Name searches only find criminal cases that ended in a conviction. For an open case, search by case number (it's on
-        the citation or charging paperwork), or use the public access terminals at the courthouse in {c.seat}, which search
-        statewide records and show more than the website does.
-      </p>
-
-      <h2>3. Check conviction history</h2>
-      <p>
-        <span className="official">Official</span>
-        <a href={mn.bcaSearch.url} target="_blank" rel="noopener">
-          {mn.bcaSearch.label}
-        </a>
-      </p>
-      <p>
-        The Bureau of Criminal Apprehension runs the state's free public criminal history search. You need the person's
-        first name, last name, and date of birth. It shows convictions, the court, the sentence, and the level of offense
-        (felony, gross misdemeanor, and so on).
-      </p>
-      <p>
-        It does <strong>not</strong> show arrests that never led to a conviction, juvenile records, out-of-state or federal
-        cases, or convictions where the sentence ended more than 15 years ago. That is why a clean BCA result does not mean
-        a person was never arrested.
-      </p>
+      {!d.roster && !d.contractJail && (
+        <p className="muted">
+          When you call, have the person's full name and date of birth ready. Jails generally confirm whether someone is in
+          custody but won't discuss the case.
+        </p>
+      )}
 
       {(d.warrants || d.warrantNotes) && (
         <>
-          <h2>Warrant search</h2>
+          <h2>Warrants</h2>
           {d.warrants && (
             <p>
               <span className="official">Official</span>
-              <a href={d.warrants.url} target="_blank" rel="noopener">
-                {d.warrants.label}
-              </a>
+              {ext(d.warrants.url, d.warrants.label)}
             </p>
           )}
           {d.warrantNotes && <p>{d.warrantNotes}</p>}
+          <p className="muted">
+            Not listed doesn't always mean no warrant. See <Link href="/guides/check-for-warrant-minnesota/">how to check for a warrant</Link>.
+          </p>
         </>
       )}
 
-      <h2>Booking photos (mugshots)</h2>
+      <h2>Find the court case</h2>
+      {court && (
+        <p>
+          Criminal cases from {c.name} County are heard at the <strong>{court.name}</strong>, {court.address}
+          {court.phone ? `, ${court.phone}` : ""}.{court.note ? ` ${court.note}` : ""}
+          {court.url && (
+            <>
+              {" "}
+              {ext(court.url, `${c.name} County District Court page`)}.
+            </>
+          )}
+        </p>
+      )}
       <p>
-        Under Minnesota law, booking photos are generally public data, though an agency can hold one back temporarily if
-        releasing it would hurt an active investigation (
-        <a href={mn.statute1382.url} target="_blank" rel="noopener">
-          Minn. Stat. § 13.82, subd. 26
-        </a>
-        ). Arrest Registry does not post booking photos.
-        {d.bookingPhotos ? (
-          <>
-            {" "}
-            The {d.sheriffName} explains its own release policy on its{" "}
-            <a href={d.bookingPhotos.url} target="_blank" rel="noopener">
-              booking photo page
-            </a>
-            .
-          </>
-        ) : (
-          <> To request one, contact the {d.sheriffName} directly.</>
-        )}
+        Search the case in {ext(mn.mcro.url, "Minnesota Court Records Online")}. Open criminal cases don't come up by name,
+        only by case number, which is usually on the roster or charging paperwork. The public terminals at the courthouse
+        search statewide and show more than the website. More in{" "}
+        <Link href="/guides/minnesota-court-date-lookup/">how to look up a court date</Link>.
       </p>
 
-      <SearchCta placement="county-mid" county={c.name} />
+      <h2>Check conviction history</h2>
+      <p>
+        The BCA's free {ext(mn.bcaSearch.url, "Public Criminal History Search")} shows Minnesota convictions for 15 years
+        after a sentence ends. It doesn't show arrests without a conviction. See{" "}
+        <Link href="/guides/are-arrest-records-public-in-minnesota/">what's public in Minnesota</Link>.
+      </p>
 
-      <h2>What an arrest record does and doesn't tell you</h2>
-      <p>
-        An arrest means police had probable cause to take someone into custody. It is not a finding of guilt. Plenty of
-        bookings end with charges dropped, reduced, or dismissed, so read the court record before drawing conclusions.
-      </p>
-      <p>
-        Minnesota's Clean Slate Act, in effect since January 1, 2025, also seals many records automatically, including
-        dismissed cases and certain lower-level convictions after a crime-free waiting period. Once a record is expunged it
-        drops out of public view. See our{" "}
-        <Link href="/guides/minnesota-expungement-clean-slate/">guide to Minnesota expungement</Link> for who qualifies.
-      </p>
-      {(d.otherLinks?.length ?? 0) > 0 && (
+      {(d.bookingPhotos || (d.otherLinks?.length ?? 0) > 0) && (
         <>
-          <h3>More from the {d.sheriffName}</h3>
+          <h2>More from the {d.sheriffName}</h2>
           <ul>
-            {d.otherLinks!.map((l) => (
-              <li key={l.url}>
-                <a href={l.url} target="_blank" rel="noopener">
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {d.bookingPhotos && <li>{ext(d.bookingPhotos.url, d.bookingPhotos.label)}</li>}
+            {d.otherLinks?.map((l) => <li key={l.url}>{ext(l.url, l.label)}</li>)}
           </ul>
         </>
       )}
 
-      <h2>Helpful guides</h2>
-      <div className="cards">
-        <Link className="card" href="/guides/find-out-if-someone-is-in-jail-minnesota/">
-          <strong>Find someone in jail</strong>
-          <span>Rosters, state prison, federal and ICE custody</span>
-        </Link>
-        <Link className="card" href="/guides/jail-roster-terms-glossary/">
-          <strong>Jail roster terms</strong>
-          <span>What ROR, hold, Huber and other terms mean</span>
-        </Link>
-        <Link className="card" href="/guides/how-bail-works-minnesota/">
-          <strong>How bail works</strong>
-          <span>Release options and how fast someone sees a judge</span>
-        </Link>
-        <Link className="card" href="/guides/check-for-warrant-minnesota/">
-          <strong>Check for a warrant</strong>
-          <span>County lists and what to do next</span>
-        </Link>
-      </div>
+      <SearchCta placement="county-mid" county={c.name} />
+
+      <p>
+        An arrest isn't a conviction, and many Minnesota records are now sealed automatically under the Clean Slate Act. See{" "}
+        <Link href="/guides/arrest-vs-conviction-records/">arrest vs. conviction records</Link> and{" "}
+        <Link href="/guides/minnesota-expungement-clean-slate/">Minnesota expungement</Link>. Arrest Registry doesn't post
+        booking photos; <Link href="/guides/remove-mugshot-from-internet/">here's how to get one removed</Link>.
+      </p>
 
       <section className="faq">
         <h2>Common questions</h2>
@@ -294,6 +257,22 @@ export default async function CountyPage({ params }: Props) {
           </div>
         ))}
       </section>
+
+      <h2>Helpful guides</h2>
+      <div className="cards">
+        <Link className="card" href="/guides/jail-roster-terms-glossary/">
+          <strong>Jail roster terms</strong>
+          <span>What ROR, hold, Huber and other terms mean</span>
+        </Link>
+        <Link className="card" href="/guides/how-bail-works-minnesota/">
+          <strong>How bail works</strong>
+          <span>Release options and how fast someone sees a judge</span>
+        </Link>
+        <Link className="card" href="/guides/find-someone-in-minnesota-prison/">
+          <strong>Find someone in prison</strong>
+          <span>Minnesota DOC Offender Locator</span>
+        </Link>
+      </div>
 
       <h2>Other counties in the {districtName(c.district)}</h2>
       {neighbors.length ? (
@@ -316,21 +295,25 @@ export default async function CountyPage({ params }: Props) {
         </p>
       )}
 
-      <Sources
-        items={[...d.sources, mn.mcroInfo, mn.bcaFaq, mn.statute1382]}
-        reviewed={d.verified}
-      />
+      <Sources items={[...d.sources, ...(court?.url ? [{ label: `${c.name} County District Court`, url: court.url }] : []), ...courtSources, mn.mcroInfo]} reviewed={d.verified} />
 
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: `How to Look Up Arrest Records in ${c.name} County, Minnesota`,
+          headline: `${c.name} County, Minnesota: Jail Roster and Arrest Records`,
           dateModified: d.verified,
           author: { "@type": "Organization", name: site.name },
           publisher: { "@type": "Organization", name: site.name },
           mainEntityOfPage: site.url + path,
           about: { "@type": "AdministrativeArea", name: `${c.name} County, Minnesota` },
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
         }}
       />
     </article>
