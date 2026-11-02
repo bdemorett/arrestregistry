@@ -17,8 +17,8 @@ export default function Home() {
       <section className="hero">
         <h1>Find where an arrest record lives</h1>
         <p className="lede">
-          An arrest moves through three offices, and each one publishes something different. We map the official, free
-          sources for every stop, county by county.
+          After an arrest, information can show up in three places, and each one publishes something different. For 85 of
+          Minnesota's 87 counties, we point you to the official, free source at each stop. More states are coming.
         </p>
         <ol className="line" aria-label="Where arrest information is published, in order">
           <li>
