@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CountyFinder from "@/components/CountyFinder";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
-import { districtCounties, districtName } from "@/data/minnesota";
+import { districtCounties, districtName, publishedCounties } from "@/data/minnesota";
 import { mn } from "@/lib/mnResources";
 import { statewide2025, ucrSource } from "@/data/mnUcr2025";
 import { formatDate, site } from "@/lib/site";
@@ -27,6 +28,10 @@ export default function MinnesotaPage() {
         the state court system, and the Bureau of Criminal Apprehension. Here's what each one covers and how to use it.
       </p>
       <p className="muted">Last reviewed {formatDate(site.lastReviewed)}</p>
+
+      <CountyFinder
+        counties={publishedCounties.map((c) => ({ slug: c.slug, name: c.name, seat: c.seat })).sort((x, y) => x.name.localeCompare(y.name))}
+      />
 
       <h2>The three official sources</h2>
       <div className="table-scroll">

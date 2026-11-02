@@ -162,7 +162,8 @@ export default async function CountyPage({ params }: Props) {
         </dl>
       </section>
 
-      <h2>Check whether someone is in custody</h2>
+      <div className="route">
+      <h2 className="station">Check whether someone is in custody</h2>
       {d.roster && (
         <p>
           <span className="official">Official</span>
@@ -204,7 +205,7 @@ export default async function CountyPage({ params }: Props) {
         </>
       )}
 
-      <h2>Find the court case</h2>
+      <h2 className="station">Find the court case</h2>
       {court && (
         <p>
           Criminal cases from {c.name} County are heard at the <strong>{court.name}</strong>, {court.address}
@@ -224,12 +225,13 @@ export default async function CountyPage({ params }: Props) {
         <Link href="/guides/minnesota-court-date-lookup/">how to look up a court date</Link>.
       </p>
 
-      <h2>Check conviction history</h2>
+      <h2 className="station">Check conviction history</h2>
       <p>
         The BCA's free {ext(mn.bcaSearch.url, "Public Criminal History Search")} shows Minnesota convictions for 15 years
         after a sentence ends. It doesn't show arrests without a conviction. See{" "}
         <Link href="/guides/are-arrest-records-public-in-minnesota/">what's public in Minnesota</Link>.
       </p>
+      </div>
 
       <CrimeStats county={c.name} district={c.district} districtCountyCount={districtCounties(c.district).length} />
 

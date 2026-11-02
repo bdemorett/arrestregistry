@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CountyFinder from "@/components/CountyFinder";
 import JsonLd from "@/components/JsonLd";
 import { publishedCounties } from "@/data/minnesota";
 import { guides } from "@/lib/guides";
@@ -10,57 +11,45 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const finderList = publishedCounties.map((c) => ({ slug: c.slug, name: c.name, seat: c.seat })).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <>
-      <section>
-        <h1>Find arrest, jail, and court records from the source</h1>
+      <section className="hero">
+        <h1>Find where an arrest record lives</h1>
         <p className="lede">
-          Every county posts arrest and jail information differently, and most of it is free. We map out exactly where to
-          look, county by county, using official government sources only.
+          An arrest moves through three offices, and each one publishes something different. We map the official, free
+          sources for every stop, county by county.
         </p>
-        <p>
-          <Link className="button" href="/minnesota/">
-            Start with Minnesota
-          </Link>
-        </p>
+        <ol className="line" aria-label="Where arrest information is published, in order">
+          <li>
+            <strong>County jail</strong>
+            <span>Who's in custody now, charges, bail</span>
+          </li>
+          <li>
+            <strong>District court</strong>
+            <span>Charges filed, hearings, outcome</span>
+          </li>
+          <li>
+            <strong>State record</strong>
+            <span>Convictions on file with the BCA</span>
+          </li>
+        </ol>
       </section>
 
-      <h2>Minnesota county guides</h2>
-      <div className="cards">
-        {publishedCounties.map((c) => (
-          <Link key={c.slug} className="card" href={`/minnesota/${c.slug}/`}>
-            <strong>{c.name} County</strong>
-            <span>Jail roster, court records, and conviction search</span>
-          </Link>
-        ))}
-      </div>
-      <p>
-        <Link href="/minnesota/">See all 87 Minnesota counties</Link>
-      </p>
+      <CountyFinder counties={finderList} />
 
-      <h2>How record lookups work</h2>
-      <ol className="steps">
-        <li>
-          <strong>Jail roster.</strong> The county sheriff's list of who is in custody now. Best for arrests in the last few
-          days.
-        </li>
-        <li>
-          <strong>Court records.</strong> Charges, hearings, and outcomes once a case is filed.
-        </li>
-        <li>
-          <strong>State criminal history.</strong> Convictions on a person's official record.
-        </li>
-      </ol>
-
-      <h2>Guides</h2>
+      <h2>Common questions, answered</h2>
       <div className="cards">
-        {guides.map((g) => (
+        {guides.slice(0, 8).map((g) => (
           <Link key={g.slug} className="card" href={`/guides/${g.slug}/`}>
             <strong>{g.title}</strong>
             <span>{g.blurb}</span>
           </Link>
         ))}
       </div>
+      <p>
+        Browse <Link href="/guides/">all guides</Link> or the <Link href="/minnesota/">Minnesota overview</Link>.
+      </p>
 
       <JsonLd
         data={{
