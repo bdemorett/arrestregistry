@@ -5,6 +5,7 @@ import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
 import { districtCounties, districtName } from "@/data/minnesota";
 import { mn } from "@/lib/mnResources";
+import { statewide2025, ucrSource } from "@/data/mnUcr2025";
 import { formatDate, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -100,6 +101,22 @@ export default function MinnesotaPage() {
         mugshots.
       </p>
 
+      <h2>Minnesota arrests by the numbers</h2>
+      <p>
+        Minnesota agencies reported {statewide2025.totalArrests.toLocaleString("en-US")} arrests in 2025:{" "}
+        {statewide2025.groupA.toLocaleString("en-US")} for Group A offenses such as assault, theft, and drug crimes, and{" "}
+        {statewide2025.groupB.toLocaleString("en-US")} for Group B offenses such as DWI, disorderly conduct, and trespass.
+        About {statewide2025.juvenilePct}% of people arrested were under 18. Violent crime fell to{" "}
+        {statewide2025.violent[1].toLocaleString("en-US")} offenses from {statewide2025.violent[0].toLocaleString("en-US")} in
+        2024, a rate of {statewide2025.violentRate} per 100,000 residents. Each county page breaks this down further.
+      </p>
+      <p className="muted">
+        Source:{" "}
+        <a href={ucrSource.url} target="_blank" rel="noopener">
+          {ucrSource.label}
+        </a>
+      </p>
+
       <SearchCta placement="state-hub" />
 
       <h2>Minnesota counties</h2>
@@ -143,7 +160,7 @@ export default function MinnesotaPage() {
       </div>
 
       <Sources
-        items={[mn.bcaSearch, mn.bcaFaq, mn.bcaInfo, mn.mcroInfo, mn.statute1382, mn.statute1387]}
+        items={[mn.bcaSearch, mn.bcaFaq, mn.bcaInfo, mn.mcroInfo, mn.statute1382, mn.statute1387, ucrSource]}
         reviewed={site.lastReviewed}
       />
     </article>

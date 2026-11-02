@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import CrimeStats from "@/components/CrimeStats";
 import JsonLd from "@/components/JsonLd";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
 import { courtSources, mnCourts } from "@/data/mnCourts";
+import { ucrSource } from "@/data/mnUcr2025";
 import { districtCounties, districtName, getCounty, publishedCounties } from "@/data/minnesota";
 import { mn } from "@/lib/mnResources";
 import { formatDate, site } from "@/lib/site";
@@ -229,6 +231,8 @@ export default async function CountyPage({ params }: Props) {
         <Link href="/guides/are-arrest-records-public-in-minnesota/">what's public in Minnesota</Link>.
       </p>
 
+      <CrimeStats county={c.name} district={c.district} districtCountyCount={districtCounties(c.district).length} />
+
       {(d.bookingPhotos || (d.otherLinks?.length ?? 0) > 0) && (
         <>
           <h2>More from the {d.sheriffName}</h2>
@@ -295,7 +299,7 @@ export default async function CountyPage({ params }: Props) {
         </p>
       )}
 
-      <Sources items={[...d.sources, ...(court?.url ? [{ label: `${c.name} County District Court`, url: court.url }] : []), ...courtSources, mn.mcroInfo]} reviewed={d.verified} />
+      <Sources items={[...d.sources, ...(court?.url ? [{ label: `${c.name} County District Court`, url: court.url }] : []), ...courtSources, ucrSource, mn.mcroInfo]} reviewed={d.verified} />
 
       <JsonLd
         data={{
