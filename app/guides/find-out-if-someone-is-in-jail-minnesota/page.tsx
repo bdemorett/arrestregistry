@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell, { ext } from "@/components/GuideShell";
-import { mn } from "@/lib/mnResources";
+import { mn } from "@/data/states/minnesota/resources";
 
 const slug = "find-out-if-someone-is-in-jail-minnesota";
 const title = "How to Find Out if Someone Is in Jail in Minnesota";

@@ -1,5 +1,5 @@
-import { districtStats, metroCrime, statewide2025, ucrSource } from "@/data/mnUcr2025";
-import { districtName } from "@/data/minnesota";
+import { districtStats, metroCrime, statewide2025, ucrSource } from "@/data/states/minnesota/ucr2025";
+import { districtName } from "@/data/states/minnesota/counties";
 
 const fmt = (n: number) => n.toLocaleString("en-US");
 const pct = (a: number, b: number) => {

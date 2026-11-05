@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import CountyFinder from "@/components/CountyFinder";
 import JsonLd from "@/components/JsonLd";
-import { publishedCounties } from "@/data/minnesota";
+import { publishedCounties } from "@/data/states/minnesota/counties";
 import { guides } from "@/lib/guides";
 import { site } from "@/lib/site";
 

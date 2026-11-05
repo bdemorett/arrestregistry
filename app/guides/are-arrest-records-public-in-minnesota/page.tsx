@@ -3,7 +3,7 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
-import { mn } from "@/lib/mnResources";
+import { mn } from "@/data/states/minnesota/resources";
 import { formatDate, site } from "@/lib/site";
 
 const path = "/guides/are-arrest-records-public-in-minnesota/";

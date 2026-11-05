@@ -4,12 +4,12 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import CountyFinder from "@/components/CountyFinder";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
-import { districtCounties, districtName, publishedCounties } from "@/data/minnesota";
-import { mn } from "@/lib/mnResources";
-import { statewide2025, ucrSource } from "@/data/mnUcr2025";
+import { districtCounties, districtName, publishedCounties } from "@/data/states/minnesota/counties";
+import { mn } from "@/data/states/minnesota/resources";
+import { statewide2025, ucrSource } from "@/data/states/minnesota/ucr2025";
 import { formatDate, site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const hubMetadata: Metadata = {
   title: "Minnesota Arrest Records: Jail Rosters, Court Cases & Criminal History",
   description:
     "How to look up arrest, jail, court, and conviction records in Minnesota using free official sources, with county-by-county jail roster guides.",

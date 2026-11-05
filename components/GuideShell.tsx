@@ -3,7 +3,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
-import type { Link as L } from "@/data/minnesota";
+import type { Link as L } from "@/data/states/minnesota/counties";
 import { guides } from "@/lib/guides";
 import { formatDate, site } from "@/lib/site";
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { publishedCounties } from "@/data/minnesota";
+import { publishedCounties } from "@/data/states/minnesota/counties";
 import { formatDate, site } from "@/lib/site";
 
 export const metadata: Metadata = {

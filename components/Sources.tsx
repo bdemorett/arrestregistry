@@ -1,4 +1,4 @@
-import type { Link as L } from "@/data/minnesota";
+import type { Link as L } from "@/data/states/minnesota/counties";
 import { formatDate } from "@/lib/site";
 
 export default function Sources({ items, reviewed }: { items: L[]; reviewed: string }) {

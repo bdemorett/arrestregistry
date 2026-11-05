@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell from "@/components/GuideShell";
-import { mn } from "@/lib/mnResources";
+import { mn } from "@/data/states/minnesota/resources";
 
 const slug = "jail-roster-terms-glossary";
 const title = "Jail Roster Terms, Explained";

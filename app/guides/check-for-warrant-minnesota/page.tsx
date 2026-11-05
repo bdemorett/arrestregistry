@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell, { ext } from "@/components/GuideShell";
-import { mn } from "@/lib/mnResources";
+import { mn } from "@/data/states/minnesota/resources";
 
 const slug = "check-for-warrant-minnesota";
 const title = "How to Check for a Warrant in Minnesota";

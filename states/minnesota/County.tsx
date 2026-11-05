@@ -6,22 +6,17 @@ import CrimeStats from "@/components/CrimeStats";
 import JsonLd from "@/components/JsonLd";
 import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
-import { courtSources, mnCourts } from "@/data/mnCourts";
-import { ucrSource } from "@/data/mnUcr2025";
-import { districtCounties, districtName, getCounty, publishedCounties } from "@/data/minnesota";
-import { mn } from "@/lib/mnResources";
+import { courtSources, mnCourts } from "@/data/states/minnesota/courts";
+import { ucrSource } from "@/data/states/minnesota/ucr2025";
+import { districtCounties, districtName, getCounty, publishedCounties } from "@/data/states/minnesota/counties";
+import { mn } from "@/data/states/minnesota/resources";
 import { formatDate, site } from "@/lib/site";
 
-type Props = { params: Promise<{ county: string }> };
-
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return publishedCounties.map((c) => ({ county: c.slug }));
+export function countySlugs() {
+  return publishedCounties.map((c) => c.slug);
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { county } = await params;
+export function countyMetadata(county: string): Metadata {
   const c = getCounty(county);
   if (!c?.detail) return {};
   const d = c.detail;
@@ -45,8 +40,7 @@ const ext = (url: string, text: string) => (
   </a>
 );
 
-export default async function CountyPage({ params }: Props) {
-  const { county } = await params;
+export default function CountyPage({ county }: { county: string }) {
   const c = getCounty(county);
   if (!c?.detail) notFound();
   const d = c.detail;
