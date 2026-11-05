@@ -73,7 +73,7 @@ export default function FloridaHub() {
       <h3>County jails</h3>
       <p>
         In most of Florida's 67 counties the sheriff runs the jail. Some counties are different, including Miami-Dade, Orange,
-        Osceola, Pasco and Volusia, where county government runs the jail, so jail questions go to the county corrections
+        Osceola, Pasco, Volusia, Escambia and Okaloosa, where county government runs the jail, so jail questions go to the county corrections
         department instead of the sheriff. Every county guide below says who runs that jail.
       </p>
 
