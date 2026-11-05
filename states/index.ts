@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import type { ComponentType } from "react";
 import MinnesotaHub, { hubMetadata as mnHubMetadata } from "@/states/minnesota/Hub";
 import MinnesotaCounty, { countyMetadata as mnCountyMetadata, countySlugs as mnCountySlugs } from "@/states/minnesota/County";
+import FloridaHub, { hubMetadata as flHubMetadata } from "@/states/florida/Hub";
+import FloridaCounty, { countyMetadata as flCountyMetadata, countySlugs as flCountySlugs } from "@/states/florida/County";
 
 export type StateModule = {
   slug: string;
@@ -29,6 +31,16 @@ export const states: StateModule[] = [
     countySlugs: mnCountySlugs,
     countyMetadata: mnCountyMetadata,
     County: MinnesotaCounty,
+  },
+  {
+    slug: "florida",
+    name: "Florida",
+    abbr: "FL",
+    hubMetadata: flHubMetadata,
+    Hub: FloridaHub,
+    countySlugs: flCountySlugs,
+    countyMetadata: flCountyMetadata,
+    County: FloridaCounty,
   },
 ];
 

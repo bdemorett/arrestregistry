@@ -2,9 +2,17 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-type Item = { slug: string; name: string; seat: string };
+type Item = { slug: string; name: string; seat: string; state?: string; stateAbbr?: string };
 
-export default function CountyFinder({ counties, state = "minnesota" }: { counties: Item[]; state?: string }) {
+export default function CountyFinder({
+  counties,
+  state = "minnesota",
+  placeholder = "County or county seat, e.g. Stearns or St. Cloud",
+}: {
+  counties: Item[];
+  state?: string;
+  placeholder?: string;
+}) {
   const [q, setQ] = useState("");
   const list = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -17,7 +25,7 @@ export default function CountyFinder({ counties, state = "minnesota" }: { counti
       <input
         id="county-q"
         type="search"
-        placeholder="County or county seat, e.g. Stearns or St. Cloud"
+        placeholder={placeholder}
         value={q}
         onChange={(e) => setQ(e.target.value)}
         autoComplete="off"
@@ -25,8 +33,10 @@ export default function CountyFinder({ counties, state = "minnesota" }: { counti
       {list.length ? (
         <ul className="county-grid">
           {list.map((c) => (
-            <li key={c.slug}>
-              <Link href={`/${state}/${c.slug}/`}>{c.name} County</Link>
+            <li key={`${c.state ?? state}/${c.slug}`}>
+              <Link href={`/${c.state ?? state}/${c.slug}/`}>
+                {c.name} County{c.stateAbbr ? `, ${c.stateAbbr}` : ""}
+              </Link>
             </li>
           ))}
         </ul>

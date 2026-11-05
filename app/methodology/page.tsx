@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { publishedCounties } from "@/data/states/minnesota/counties";
+import { flPublished } from "@/data/states/florida/counties";
 import { formatDate, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -37,12 +38,14 @@ export default function Methodology() {
           <strong>Warrant lists.</strong> We link a county's warrant list only if the sheriff publishes one.
         </li>
         <li>
-          <strong>The courthouse.</strong> Courthouse locations come from the Minnesota Judicial Branch. Court phone numbers
-          are listed only where we confirmed the main number on mncourts.gov.
+          <strong>The court.</strong> In Minnesota, courthouse locations come from the Minnesota Judicial Branch, and court
+          phone numbers are listed only where we confirmed the main number on mncourts.gov. In Florida, court records are
+          kept by each county's elected clerk, so we link the clerk's own case search.
         </li>
         <li>
-          <strong>Statewide rules.</strong> Statements about public records, bail, expungement, and court access cite
-          Minnesota statutes, court rules, the BCA, or the Judicial Branch.
+          <strong>Statewide rules.</strong> Statements about public records, bail, expungement, and court access cite that
+          state's statutes, court rules, and official agencies, such as Minnesota's BCA or the Florida Department of Law
+          Enforcement.
         </li>
       </ol>
 
@@ -67,8 +70,8 @@ export default function Methodology() {
 
       <h2>Coverage</h2>
       <p>
-        {publishedCounties.length} of Minnesota's 87 counties are published so far. See the{" "}
-        <Link href="/minnesota/">Minnesota county list</Link>.
+        {publishedCounties.length} of Minnesota's 87 counties and {flPublished.length} of Florida's 67 counties are published
+        so far. See the <Link href="/minnesota/">Minnesota</Link> and <Link href="/florida/">Florida</Link> county lists.
       </p>
     </article>
   );
