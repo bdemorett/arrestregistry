@@ -8,7 +8,7 @@ import type { ComponentType } from "react";
 import MinnesotaHub, { hubMetadata as mnHubMetadata } from "@/states/minnesota/Hub";
 import MinnesotaCounty, { countyMetadata as mnCountyMetadata, countySlugs as mnCountySlugs } from "@/states/minnesota/County";
 import FloridaHub, { hubMetadata as flHubMetadata } from "@/states/florida/Hub";
-import FloridaCounty, { countyMetadata as flCountyMetadata, countySlugs as flCountySlugs } from "@/states/florida/County";
+import FloridaCounty, { countyMetadata as flCountyMetadata, countySlugs as flCountySlugs, indexableSlugs as flIndexableSlugs } from "@/states/florida/County";
 
 export type StateModule = {
   slug: string;
@@ -17,6 +17,8 @@ export type StateModule = {
   hubMetadata: Metadata;
   Hub: ComponentType;
   countySlugs: () => string[];
+  // County pages to list in the sitemap; defaults to all of countySlugs.
+  indexableSlugs?: () => string[];
   countyMetadata: (county: string) => Metadata;
   County: ComponentType<{ county: string }>;
 };
@@ -39,6 +41,7 @@ export const states: StateModule[] = [
     hubMetadata: flHubMetadata,
     Hub: FloridaHub,
     countySlugs: flCountySlugs,
+    indexableSlugs: flIndexableSlugs,
     countyMetadata: flCountyMetadata,
     County: FloridaCounty,
   },

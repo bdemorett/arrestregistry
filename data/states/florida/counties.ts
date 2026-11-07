@@ -8,6 +8,7 @@ import type { Link } from "@/data/states/minnesota/counties";
 
 export type FlCountyDetail = {
   verified: string; // YYYY-MM-DD the official pages were checked
+  noindex?: boolean; // live for visitors but kept out of Google and the sitemap until it has more detail
   sheriffName: string;
   jailOperator?: string; // set when the county, not the sheriff, runs the jail
   jailName?: string;
@@ -800,6 +801,7 @@ const details: Record<string, FlCountyDetail> = {
   },
   Nassau: {
     verified: V,
+    noindex: true,
     sheriffName: "Nassau County Sheriff's Office",
     infoPhone: "904-225-5174",
     infoPhoneLabel: "Sheriff's non-emergency line",
@@ -816,6 +818,7 @@ const details: Record<string, FlCountyDetail> = {
   },
   Monroe: {
     verified: V,
+    noindex: true,
     sheriffName: "Monroe County Sheriff's Office",
     infoPhone: "305-289-2351",
     infoPhoneLabel: "Sheriff's non-emergency line",
@@ -833,6 +836,7 @@ const details: Record<string, FlCountyDetail> = {
   },
   Putnam: {
     verified: V,
+    noindex: true,
     sheriffName: "Putnam County Sheriff's Office",
     roster: { label: "PCSO Jail View", url: "https://smartweb.pcso.us/smartwebclient/jail.aspx" },
     pastSearch: "can search released inmates",

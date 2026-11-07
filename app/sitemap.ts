@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${site.url}/`, lastModified: d, priority: 1 },
     ...states.flatMap((s) => [
       { url: `${site.url}/${s.slug}/`, lastModified: d, priority: 0.9 },
-      ...s.countySlugs().map((c) => ({ url: `${site.url}/${s.slug}/${c}/`, lastModified: d, priority: 0.8 })),
+      ...(s.indexableSlugs ?? s.countySlugs)().map((c) => ({ url: `${site.url}/${s.slug}/${c}/`, lastModified: d, priority: 0.8 })),
     ]),
     { url: `${site.url}/guides/`, lastModified: d, priority: 0.6 },
     ...guides.map((g) => ({ url: `${site.url}/guides/${g.slug}/`, lastModified: d, priority: 0.7 })),

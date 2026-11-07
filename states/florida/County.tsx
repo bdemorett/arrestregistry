@@ -8,10 +8,15 @@ import Sources from "@/components/Sources";
 import { circuitCounties, circuitName, flPublished, getFlCounty } from "@/data/states/florida/counties";
 import { fl } from "@/data/states/florida/resources";
 import { clerksSource, flClerkOffices } from "@/data/states/florida/clerks";
+import { bookingsSource, flBookings } from "@/data/states/florida/bookings";
 import { formatDate, site } from "@/lib/site";
 
 export function countySlugs() {
   return flPublished.map((c) => c.slug);
+}
+
+export function indexableSlugs() {
+  return flPublished.filter((c) => !c.detail?.noindex).map((c) => c.slug);
 }
 
 export function countyMetadata(county: string): Metadata {
@@ -24,6 +29,7 @@ export function countyMetadata(county: string): Metadata {
     description,
     alternates: { canonical: `/florida/${c.slug}/` },
     openGraph: { title, description, url: `/florida/${c.slug}/` },
+    ...(c.detail.noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }
 
@@ -42,6 +48,8 @@ export default function FloridaCountyPage({ county }: { county: string }) {
   const jailRunner = d.jailOperator ?? `the ${d.sheriffName}`;
   const callPhone = d.jailPhone || d.infoPhone;
   const office = flClerkOffices[c.name];
+  const bk = flBookings[c.name];
+  const n = (x: number) => x.toLocaleString("en-US");
 
   const faqs: { q: string; a: string }[] = [
     {
@@ -204,6 +212,50 @@ export default function FloridaCountyPage({ county }: { county: string }) {
         </p>
       </div>
 
+      <h2>Arrests in {c.name} County</h2>
+      {bk ? (
+        <>
+          <p>
+            {bk.y2025
+              ? `FDLE data shows about ${n(bk.y2025)} arrests booked in ${c.name} County in 2025${bk.y2024 ? `, compared with ${n(bk.y2024)} in 2024` : ""}.`
+              : `FDLE data shows about ${n(bk.y2024!)} arrests booked in ${c.name} County in 2024.`}
+            {bk.felonyPct2025 !== undefined && ` About ${bk.felonyPct2025}% of 2025 arrests included at least one felony charge.`}
+          </p>
+          {bk.topAgencies2025 && (
+            <div className="table-scroll">
+              <table>
+                <caption className="muted" style={{ textAlign: "left", captionSide: "top", padding: "0 0 6px" }}>
+                  Agencies with the most {c.name} County arrests in 2025
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Arresting agency</th>
+                    <th>Arrests</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bk.topAgencies2025.map(([a, k]) => (
+                    <tr key={a}>
+                      <td>{a}</td>
+                      <td>{n(k)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <p className="muted">
+            From FDLE's county detention arrest data. FDLE lists each charge separately; we count one arrest per person per
+            day. Figures can change as agencies update their records.
+          </p>
+        </>
+      ) : (
+        <p className="muted">
+          {c.name} County's reporting to FDLE's county detention arrest data is incomplete for 2024 and 2025, so we don't show
+          yearly arrest numbers yet.
+        </p>
+      )}
+
       <h2>Looking for someone who's been released?</h2>
       <p>
         {d.pastSearch
@@ -296,7 +348,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
         </p>
       )}
 
-      <Sources items={[...d.sources, clerksSource, fl.fdleSearch, fl.fdcSearch, fl.statute9430595, fl.statute90143, fl.statute26021]} reviewed={d.verified} />
+      <Sources items={[...d.sources, clerksSource, ...(bk ? [bookingsSource] : []), fl.fdleSearch, fl.fdcSearch, fl.statute9430595, fl.statute90143, fl.statute26021]} reviewed={d.verified} />
 
       <JsonLd
         data={{
