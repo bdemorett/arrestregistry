@@ -53,6 +53,10 @@ export default function FloridaCountyPage({ county }: { county: string }) {
         : `The ${d.sheriffName}. In most Florida counties the sheriff runs the jail.`,
     },
     {
+      q: `How do I find someone who was released from the ${c.name} County jail?`,
+      a: `${d.pastSearch ? `The ${d.roster.label} ${d.pastSearch}.` : `The ${d.roster.label} mainly lists people in custody now.`} For an older arrest, search the ${d.clerk.search.label} by name, or use FDLE's statewide criminal history search ($24), which covers Florida arrests and outcomes unless the record was sealed or expunged.`,
+    },
+    {
       q: `How do I look up a ${c.name} County court case?`,
       a: `Criminal cases are filed with the ${d.clerk.name}. Use the ${d.clerk.search.label} to find charges, hearings and outcomes. Some documents are confidential and won't show online.`,
     },
@@ -180,6 +184,31 @@ export default function FloridaCountyPage({ county }: { county: string }) {
           aren't released.
         </p>
       </div>
+
+      <h2>Looking for someone who's been released?</h2>
+      <p>
+        {d.pastSearch
+          ? `The ${d.roster.label} ${d.pastSearch}, so start there.`
+          : `The ${d.roster.label} is mainly for people in custody now, so someone who's been released may not show up.`}{" "}
+        To find an older arrest:
+      </p>
+      <ul>
+        <li>
+          <strong>The court case:</strong> search the {ext(d.clerk.search.url, d.clerk.search.label)} by name. Closed cases
+          show the charges and how the case ended.
+        </li>
+        <li>
+          <strong>Statewide history:</strong> the {ext(fl.fdleSearch.url, "FDLE criminal history search")} covers arrests and
+          outcomes across Florida for $24, unless the record was sealed or expunged.
+        </li>
+        <li>
+          <strong>The booking record:</strong> arrest records are generally public under Florida's public records law, so you
+          can ask the {d.jailOperator ?? d.sheriffName} for a copy.
+        </li>
+        <li>
+          <strong>Sent to prison:</strong> check the {ext(fl.fdcSearch.url, "Florida Department of Corrections Offender Search")}.
+        </li>
+      </ul>
 
       {d.otherLinks && d.otherLinks.length > 0 && (
         <>

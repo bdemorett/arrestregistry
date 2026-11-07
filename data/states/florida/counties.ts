@@ -19,6 +19,7 @@ export type FlCountyDetail = {
   roster: Link;
   rosterNotes: string[];
   pastArrests?: Link;
+  pastSearch?: string; // phrase after the roster name saying how it covers released people
   warrants?: Link;
   clerk: { name: string; search: Link };
   otherLinks?: Link[];
@@ -226,6 +227,7 @@ const details: Record<string, FlCountyDetail> = {
     infoPhone: "904-630-0500",
     infoPhoneLabel: "JSO non-emergency",
     roster: { label: "JSO Inmate Information Search", url: "https://inmatesearch.jaxsheriff.org/" },
+    pastSearch: "covers released inmates too",
     rosterNotes: [
       "Covers both current and released inmates, so it's useful for older arrests too.",
       "Records include charges and booking photos.",
@@ -265,6 +267,7 @@ const details: Record<string, FlCountyDetail> = {
     jailAddress: "2115 Martin Luther King Blvd, Fort Myers, FL 33901",
     jailPhone: "239-477-1500",
     roster: { label: "LCSO Arrest Search", url: "https://www.sheriffleefl.org/arrest-search/" },
+    pastSearch: "lets you search by release date",
     rosterNotes: [
       "Search by booking or release date, and filter by whether the person is still in custody.",
       "The sheriff notes it doesn't reflect how charges were resolved and isn't a substitute for a public records request.",
@@ -285,6 +288,7 @@ const details: Record<string, FlCountyDetail> = {
     jailPhone: "863-292-3400",
     jailPhoneLabel: "Inmate information",
     roster: { label: "PCSO Jail Inquiry", url: "https://www.polksheriff.org/detention/jail-inquiry" },
+    pastSearch: "can search bookings back to 1999",
     rosterNotes: [
       "Search current inmates only, or bookings going back to 1999.",
       "Results stop at 1,000 matches, so add a first name or booking date to narrow a common name.",
@@ -329,6 +333,7 @@ const details: Record<string, FlCountyDetail> = {
     infoPhoneLabel: "Pasco County main line",
     roster: { label: "Pasco Corrections In Custody search", url: "https://jailinfo.pascocorrections.net/jmc/#/inCustody" },
     pastArrests: { label: "Pasco Corrections Past Arrests search", url: "https://jailinfo.pascocorrections.net/JMC/#/pastArrests" },
+    pastSearch: "has a separate Past Arrests search",
     rosterNotes: [
       "Pasco County's Board of County Commissioners took over the detention center from the sheriff on October 1, 2022. Jail questions now go to the county, not the sheriff.",
       "There are two searches: one for people in custody now and one for past arrests.",
@@ -387,6 +392,7 @@ const details: Record<string, FlCountyDetail> = {
     jailAddress: "2020 Main Street, Sarasota, FL 34237",
     jailPhone: "941-861-4601",
     roster: { label: "SCSO Arrests & Inmate Search", url: "https://www.sarasotasheriff.org/arrest-reports/index.php" },
+    pastSearch: "includes prior bookings",
     rosterNotes: [
       "Includes current and prior bookings.",
       "The sheriff warns it may not reflect a person's current location, status or release date.",
@@ -419,6 +425,7 @@ const details: Record<string, FlCountyDetail> = {
     verified: V,
     sheriffName: "Collier County Sheriff's Office",
     roster: { label: "Collier County Arrests", url: "https://www2.colliersheriff.org/arrestsearch/" },
+    pastSearch: "lets you search past booking dates",
     rosterNotes: [
       "Shows today's arrest reports, and you can search past dates by booking date or by name.",
       "The sheriff notes it doesn't reflect how charges were resolved.",
@@ -622,6 +629,7 @@ const details: Record<string, FlCountyDetail> = {
     infoPhone: "352-754-6830",
     infoPhoneLabel: "Sheriff's non-emergency line",
     roster: { label: "HCSO jail search", url: "https://www.hernandosheriff.org/jail/Applications/JailSearch/" },
+    pastSearch: "can include released inmates if you check \"Include Released\"",
     rosterNotes: [
       "Search by booking or release date, and check \"Include Released\" to see people who are no longer in custody.",
       "The sheriff notes it doesn't show how a case ended. For outcomes, check the clerk.",
@@ -804,6 +812,7 @@ const details: Record<string, FlCountyDetail> = {
     verified: V,
     sheriffName: "Putnam County Sheriff's Office",
     roster: { label: "PCSO Jail View", url: "https://smartweb.pcso.us/smartwebclient/jail.aspx" },
+    pastSearch: "can search released inmates",
     rosterNotes: ["Search current inmates, released inmates or both, and filter by booking or release date."],
     warrants: { label: "PCSO warrant view", url: "https://smartweb.pcso.us/smartwebclient/warrant.aspx" },
     clerk: {
