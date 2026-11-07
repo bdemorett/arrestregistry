@@ -15,6 +15,7 @@ export type CountyDetail = {
   sheriffPhone?: string;
   roster?: Link;
   rosterNotes: string[]; // what the official roster shows and for how long
+  releaseWindow?: string; // how long released people stay listed, as a phrase after the roster name
   warrants?: Link;
   warrantNotes?: string;
   bookingPhotos?: Link;
@@ -129,6 +130,7 @@ const details: Record<string, CountyDetail> = {
     jailAddress: "401 South 4th Avenue, Suite 100, Minneapolis, MN 55415",
     jailPhone: "612-348-5112",
     roster: { label: "Hennepin County Jail Roster", url: "https://jailroster.hennepin.us/" },
+    releaseWindow: "also lists anyone released in the past 7 days",
     rosterNotes: [
       "Lists people currently in the county jail plus anyone released in the past 7 days.",
       "Each entry shows charges, bail, and scheduled court dates.",
@@ -152,6 +154,7 @@ const details: Record<string, CountyDetail> = {
       label: "Ramsey County Inmates In-Custody (Booking Reports)",
       url: "https://www.ramseycountymn.gov/your-government/leadership/sheriffs-office/sheriffs-office-divisions/detention-services/adult-detention-center-jail/inmates-custody-booking-reports",
     },
+    releaseWindow: "keeps a record up for five days after release",
     rosterNotes: [
       "Shows booking details including names, booking dates, and arresting charges.",
       "Formal charges appear only once they have been filed.",
@@ -181,6 +184,7 @@ const details: Record<string, CountyDetail> = {
     jailAddress: "325 Jackson Street, Anoka, MN 55303",
     jailPhone: "763-324-5100",
     roster: { label: "Anoka County Inmate Locator", url: "https://www.anokacountymn.gov/727/Inmate-Locator" },
+    releaseWindow: "also includes people recently released",
     rosterNotes: [
       "Searches people currently in custody and people recently released.",
     ],
@@ -371,6 +375,7 @@ const details: Record<string, CountyDetail> = {
     jailPhone: "218-726-2345",
     sheriffPhone: "218-726-2340",
     roster: { label: "St. Louis County Jail Roster", url: "https://www.stlouiscountymn.gov/departments-a-z/sheriff/jail/jail-roster" },
+    releaseWindow: "comes with a separate list of people released in the past 48 hours",
     rosterNotes: [
       "The county posts two PDFs: current inmates, and people released in the past 48 hours. Use Find in Page (Ctrl+F) to search for a name.",
       "The rosters update every hour.",

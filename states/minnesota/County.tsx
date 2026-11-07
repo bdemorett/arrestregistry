@@ -21,7 +21,9 @@ export function countyMetadata(county: string): Metadata {
   if (!c?.detail) return {};
   const d = c.detail;
   const title = d.roster
-    ? `${c.name} County, MN Jail Roster & Arrest Records Lookup`
+    ? d.warrants
+      ? `${c.name} County, MN Jail Roster, Warrant Search & Arrest Records`
+      : `${c.name} County, MN Jail Roster & Arrest Records Lookup`
     : `${c.name} County, MN Arrest Records: Jail, Court & Sheriff Contacts`;
   const description = d.roster
     ? `Official ${c.name} County jail roster link, how long records stay up, sheriff and courthouse contacts, and how to search court cases and convictions in Minnesota.`
@@ -48,6 +50,13 @@ export default function CountyPage({ county }: { county: string }) {
   const neighbors = districtCounties(c.district).filter((n) => n.slug !== c.slug);
   const path = `/minnesota/${c.slug}/`;
   const contactPhone = d.jailPhone || d.sheriffPhone;
+  const releaseLine = d.contractJail
+    ? `${c.name} County inmates are held at the ${d.contractJail}, so check that jail's roster or call it first.`
+    : d.roster
+      ? d.releaseWindow
+        ? `The ${d.roster.label} ${d.releaseWindow}. After that, released people drop off.`
+        : `The ${d.roster.label} is meant for people in custody now, so someone who's been released usually drops off.`
+      : `${c.name} County doesn't post an online roster, so call ${contactPhone ? `${d.jailPhone ? "the jail" : "the sheriff's office"} at ${contactPhone}` : `the ${d.sheriffName}`}.`;
 
   const faqs: { q: string; a: string }[] = [
     {
@@ -66,6 +75,10 @@ export default function CountyPage({ county }: { county: string }) {
           },
         ]
       : []),
+    {
+      q: `How do I find someone who was released from the ${c.name} County jail?`,
+      a: `${releaseLine} For an older arrest, search the court case in Minnesota Court Records Online, check convictions in the BCA's free Public Criminal History Search, or ask the ${d.sheriffName} for the booking record. Basic arrest data is public under Minn. Stat. § 13.82.`,
+    },
     {
       q: `Does ${c.name} County post a warrant list?`,
       a: d.warrants
@@ -183,21 +196,25 @@ export default function CountyPage({ county }: { county: string }) {
         </p>
       )}
 
-      {(d.warrants || d.warrantNotes) && (
-        <>
-          <h2>Warrants</h2>
-          {d.warrants && (
-            <p>
-              <span className="official">Official</span>
-              {ext(d.warrants.url, d.warrants.label)}
-            </p>
-          )}
-          {d.warrantNotes && <p>{d.warrantNotes}</p>}
-          <p className="muted">
-            Not listed doesn't always mean no warrant. See <Link href="/guides/check-for-warrant-minnesota/">how to check for a warrant</Link>.
-          </p>
-        </>
+      <h2>Warrant search</h2>
+      {d.warrants && (
+        <p>
+          <span className="official">Official</span>
+          {ext(d.warrants.url, d.warrants.label)}
+        </p>
       )}
+      {d.warrantNotes && <p>{d.warrantNotes}</p>}
+      {!d.warrants && !d.warrantNotes && (
+        <p>
+          We couldn't find an online warrant list for {c.name} County. To ask about a warrant, call the {d.sheriffName}
+          {d.sheriffPhone ? ` at ${d.sheriffPhone}` : ""}.
+        </p>
+      )}
+      <p className="muted">
+        Minnesota has no public statewide warrant search, so each county's list only covers its own warrants. Not being
+        listed doesn't always mean there's no warrant. See <Link href="/guides/check-for-warrant-minnesota/">how to check for a warrant</Link>.
+      </p>
+
 
       <h2 className="station">Find the court case</h2>
       {court && (
@@ -226,6 +243,26 @@ export default function CountyPage({ county }: { county: string }) {
         <Link href="/guides/are-arrest-records-public-in-minnesota/">what's public in Minnesota</Link>.
       </p>
       </div>
+
+      <h2>Looking for someone who's been released?</h2>
+      <p>{releaseLine} To find an older arrest:</p>
+      <ul>
+        <li>
+          <strong>The court case:</strong> search {ext(mn.mcro.url, "Minnesota Court Records Online")}. Not every criminal case
+          shows up in an online name search, so if you don't find it, the public terminals at any Minnesota courthouse show more.
+        </li>
+        <li>
+          <strong>Convictions:</strong> the BCA's free {ext(mn.bcaSearch.url, "Public Criminal History Search")} covers convictions
+          for 15 years after the sentence ends.
+        </li>
+        <li>
+          <strong>The booking record:</strong> basic arrest and booking data is public under{" "}
+          {ext(mn.statute1382.url, "Minn. Stat. § 13.82")}. Ask the {d.sheriffName}'s records office for it.
+        </li>
+        <li>
+          <strong>Sent to prison:</strong> check the {ext(mn.docLocator.url, "Minnesota DOC Offender Locator")}.
+        </li>
+      </ul>
 
       <CrimeStats county={c.name} district={c.district} districtCountyCount={districtCounties(c.district).length} />
 
