@@ -374,6 +374,8 @@ const details: Record<string, FlCountyDetail> = {
     verified: V,
     sheriffName: "Seminole County Sheriff's Office",
     jailName: "John E. Polk Correctional Facility",
+    jailAddress: "211 Eslinger Way, Sanford, FL 32773",
+    jailPhone: "407-665-1200",
     roster: { label: "SCSO Correctional Facility inmate search", url: "https://webbond.seminolesheriff.org/webbond/" },
     rosterNotes: ["The sheriff's office runs the county jail, the John E. Polk Correctional Facility in Sanford."],
     clerk: {
@@ -381,6 +383,7 @@ const details: Record<string, FlCountyDetail> = {
       search: { label: "Seminole County Clerk website (court case search)", url: "https://www.seminoleclerk.org/" },
     },
     sources: [
+      { label: "Seminole County Sheriff's Office: John E. Polk Correctional Facility", url: "https://www.seminolesheriff.org/page.aspx?id=60" },
       { label: "Seminole County Sheriff's Office: Correctional Facility & Probation", url: "https://webbond.seminolesheriff.org/webbond/" },
       { label: "Seminole County Clerk of the Circuit Court & Comptroller", url: "https://www.seminoleclerk.org/" },
     ],
@@ -410,6 +413,8 @@ const details: Record<string, FlCountyDetail> = {
   Manatee: {
     verified: V,
     sheriffName: "Manatee County Sheriff's Office",
+    infoPhone: "941-747-3011",
+    infoPhoneLabel: "Sheriff's non-emergency line",
     roster: { label: "MCSO Arrest Inquiries", url: "https://www.manateesheriff.com/arrest_inquiries_app/" },
     rosterNotes: ["The sheriff's office runs the county jail and posts bookings through its arrest inquiries search."],
     clerk: {
@@ -417,6 +422,7 @@ const details: Record<string, FlCountyDetail> = {
       search: { label: "Manatee Clerk court records person search", url: "https://records.manateeclerk.com/CourtRecords/Search/Person" },
     },
     sources: [
+      { label: "Manatee County Sheriff's Office: Contact", url: "https://www.manateesheriff.com/contact_us/contact.php" },
       { label: "Manatee County Sheriff's Office: Arrest Inquiries", url: "https://www.manateesheriff.com/arrest_inquiries_app/" },
       { label: "Manatee Clerk: Online Searches", url: "https://www.manateeclerk.com/online-searches/" },
     ],
@@ -443,6 +449,11 @@ const details: Record<string, FlCountyDetail> = {
     verified: V,
     sheriffName: "Osceola County Sheriff's Office",
     jailOperator: "Osceola County Corrections Department",
+    jailName: "Osceola County Correctional Facility",
+    jailAddress: "402 Simpson Rd, Kissimmee, FL 34744",
+    jailPhone: "407-742-4444",
+    infoPhone: "407-742-4411",
+    infoPhoneLabel: "Corrections records",
     roster: { label: "Osceola County Corrections inmate search", url: "https://legacy-apps.osceola.org/Apps/CorrectionsReports/Report/Search/" },
     rosterNotes: ["Osceola's jail is run by county government, not the sheriff, so jail questions go to Osceola County Corrections."],
     clerk: {
@@ -450,6 +461,7 @@ const details: Record<string, FlCountyDetail> = {
       search: { label: "Osceola Clerk court case search", url: "https://courts.osceolaclerk.com/BenchmarkWeb/Home.aspx/Search" },
     },
     sources: [
+      { label: "Osceola County: Corrections Department Contact Information", url: "https://www.osceola.org/Government/Agencies-and-Departments-Directory/Corrections-Department/Corrections-Department-Contact-Information" },
       { label: "Osceola County Corrections: Inmate Search", url: "https://legacy-apps.osceola.org/Apps/CorrectionsReports/Report/Search/" },
       { label: "Osceola Clerk: Felony & Misdemeanor", url: "https://osceolaclerk.com/felony-misdemeanor/" },
     ],
@@ -491,6 +503,11 @@ const details: Record<string, FlCountyDetail> = {
   "St. Lucie": {
     verified: V,
     sheriffName: "St. Lucie County Sheriff's Office",
+    jailName: "St. Lucie County Jail",
+    jailAddress: "900 North Rock Road, Fort Pierce, FL 34945",
+    jailPhone: "772-462-3450",
+    infoPhone: "772-462-7300",
+    infoPhoneLabel: "Sheriff's office main line",
     roster: { label: "SLCSO Inmate Search", url: "https://jail.stluciesheriff.com/inmateSearch.php" },
     rosterNotes: ["The sheriff's office runs the county jail in Fort Pierce and posts current inmates online."],
     clerk: {
@@ -498,6 +515,7 @@ const details: Record<string, FlCountyDetail> = {
       search: { label: "St. Lucie Clerk court case search", url: "https://courtcasesearch.stlucieclerk.gov/BenchmarkWebExternal/Home.aspx/Search" },
     },
     sources: [
+      { label: "St. Lucie County Sheriff's Office: St. Lucie County Jail", url: "https://www.stluciesheriff.com/directory.aspx?did=6" },
       { label: "St. Lucie County Sheriff's Office: Inmate Lookup", url: "https://stluciesheriff.com/215/Inmate-Lookup" },
       { label: "St. Lucie Clerk: Court Case Search", url: "https://stlucieclerk.gov/public-search-gen/search-court-cases" },
     ],
@@ -507,6 +525,8 @@ const details: Record<string, FlCountyDetail> = {
     sheriffName: "Escambia County Sheriff's Office",
     jailOperator: "Escambia County Corrections",
     jailName: "Escambia County Correctional Facility",
+    jailAddress: "3080 N Pace Blvd., Pensacola, FL 32505",
+    jailPhone: "850-436-9830",
     roster: { label: "Escambia County Inmate Lookup", url: "http://inmatelookup.myescambia.com/smartwebclient/jail.aspx" },
     rosterNotes: ["Escambia's jail is part of county government's Corrections department, so jail questions go to the county rather than the sheriff."],
     clerk: {
@@ -514,6 +534,7 @@ const details: Record<string, FlCountyDetail> = {
       search: { label: "Escambia Clerk online public records", url: "https://www.escambiaclerk.com/258/Online-Public-Records" },
     },
     sources: [
+      { label: "Escambia County Corrections: Contacts", url: "https://myescambia.com/our-services/corrections/community-detention/contacts" },
       { label: "Escambia County: Correctional Facility", url: "https://myescambia.com/our-services/corrections/community-detention/jail" },
       { label: "Escambia County: Inmate Lookup", url: "https://myescambia.com/our-services/corrections/community-detention/inmate-lookup" },
       { label: "Escambia Clerk: Online Public Records", url: "https://www.escambiaclerk.com/258/Online-Public-Records" },
@@ -665,6 +686,7 @@ const details: Record<string, FlCountyDetail> = {
     verified: V,
     sheriffName: "Santa Rosa County Sheriff's Office",
     jailName: "Santa Rosa County Jail",
+    jailAddress: "5755 E. Milton Road, Milton, FL 32583",
     roster: { label: "Santa Rosa County Jail View", url: "http://jailview.srso.net/SmartWebClient/jail.aspx" },
     rosterNotes: [
       "Shows the arrest as it stood at booking, based on the information available then.",
@@ -675,6 +697,7 @@ const details: Record<string, FlCountyDetail> = {
       search: { label: "Santa Rosa Clerk public records search", url: "https://santarosaclerk.com/courts/search-public-records/" },
     },
     sources: [
+      { label: "Santa Rosa County Sheriff's Office: Directions", url: "https://santarosasheriff.org/directions/" },
       { label: "Santa Rosa County Sheriff's Office: Jail View", url: "https://santarosasheriff.org/jail-view/" },
       { label: "Santa Rosa Clerk: Search Public Records", url: "https://santarosaclerk.com/courts/search-public-records/" },
     ],

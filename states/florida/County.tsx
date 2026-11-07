@@ -7,6 +7,7 @@ import SearchCta from "@/components/SearchCta";
 import Sources from "@/components/Sources";
 import { circuitCounties, circuitName, flPublished, getFlCounty } from "@/data/states/florida/counties";
 import { fl } from "@/data/states/florida/resources";
+import { clerksSource, flClerkOffices } from "@/data/states/florida/clerks";
 import { formatDate, site } from "@/lib/site";
 
 export function countySlugs() {
@@ -40,6 +41,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
   const neighbors = circuitCounties(c.circuit).filter((n) => n.slug !== c.slug);
   const jailRunner = d.jailOperator ?? `the ${d.sheriffName}`;
   const callPhone = d.jailPhone || d.infoPhone;
+  const office = flClerkOffices[c.name];
 
   const faqs: { q: string; a: string }[] = [
     {
@@ -58,7 +60,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
     },
     {
       q: `How do I look up a ${c.name} County court case?`,
-      a: `Criminal cases are filed with the ${d.clerk.name}. Use the ${d.clerk.search.label} to find charges, hearings and outcomes. Some documents are confidential and won't show online.`,
+      a: `Criminal cases are filed with the ${d.clerk.name}. Use the ${d.clerk.search.label} to find charges, hearings and outcomes.${office ? ` For help, call the clerk's office at ${office.phone}.` : ""} Some documents are confidential and won't show online.`,
     },
     {
       q: "Will an arrest stay on someone's record if the charges were dropped?",
@@ -122,7 +124,23 @@ export default function FloridaCountyPage({ county }: { county: string }) {
             </>
           )}
           <dt>Court records</dt>
-          <dd>{d.clerk.name}</dd>
+          <dd>
+            {d.clerk.name}
+            {office?.address && (
+              <>
+                <br />
+                {office.address}
+              </>
+            )}
+          </dd>
+          {office && (
+            <>
+              <dt>Clerk's office</dt>
+              <dd>
+                <a href={`tel:${office.phone.split(" ")[0]}`}>{office.phone}</a>
+              </dd>
+            </>
+          )}
           <dt>Court circuit</dt>
           <dd>{circuitName(c.circuit)}</dd>
         </dl>
@@ -164,7 +182,8 @@ export default function FloridaCountyPage({ county }: { county: string }) {
         <h2 className="station">Find the court case</h2>
         <p>
           In Florida, each county's elected clerk keeps the court records. Criminal cases from {c.name} County are filed with
-          the <strong>{d.clerk.name}</strong>.
+          the <strong>{d.clerk.name}</strong>{office ? `${office.address ? `, main office at ${office.address}` : ""}, ${office.phone}` : ""}. The clerk's main office
+          isn't always where criminal hearings are held, so check the hearing notice or the case record for the courtroom.
         </p>
         <p>
           <span className="official">Official</span>
@@ -277,7 +296,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
         </p>
       )}
 
-      <Sources items={[...d.sources, fl.fdleSearch, fl.fdcSearch, fl.statute9430595, fl.statute90143, fl.statute26021]} reviewed={d.verified} />
+      <Sources items={[...d.sources, clerksSource, fl.fdleSearch, fl.fdcSearch, fl.statute9430595, fl.statute90143, fl.statute26021]} reviewed={d.verified} />
 
       <JsonLd
         data={{
