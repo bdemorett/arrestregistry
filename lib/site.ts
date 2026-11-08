@@ -12,6 +12,8 @@ export const site = {
   affiliateName: process.env.NEXT_PUBLIC_AFFILIATE_NAME || "",
   // Bump when content is reviewed; shown on pages as "Last reviewed".
   lastReviewed: "2026-11-01",
+  // Google AdSense publisher client ID
+  adsenseClient: "ca-pub-2329893496371145",
 };
 
 export const formatDate = (iso: string) =>

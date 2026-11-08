@@ -12,7 +12,7 @@ export default function Privacy() {
     <article>
       <Breadcrumbs items={[{ name: "Privacy", href: "/privacy/" }]} />
       <h1>Privacy Policy</h1>
-      <p className="muted">Effective {formatDate(site.lastReviewed)}</p>
+      <p className="muted">Effective {formatDate("2026-11-07")}</p>
       <p>
         This policy covers {site.domain}, operated by {site.owner}. We don't ask you to create an account and we don't
         collect names or search terms you type into government websites we link to.
@@ -37,8 +37,25 @@ export default function Privacy() {
       </p>
       <h2>Advertising</h2>
       <p>
-        If we add display advertising, ad partners may use cookies to show ads based on your visits to this and other sites.
-        We will update this policy before that happens.
+        We use Google AdSense to show ads. Google and its partners use cookies to serve ads based on your prior visits to
+        this site and other sites, and to measure how ads perform. Google's use of advertising cookies lets it and its
+        partners show you ads based on your visits to this and other sites on the internet.
+      </p>
+      <p>
+        You can turn off personalized ads in{" "}
+        <a href="https://adssettings.google.com" target="_blank" rel="noopener">
+          Google's Ad Settings
+        </a>
+        , and opt out of some third-party vendors' personalized advertising at{" "}
+        <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">
+          aboutads.info
+        </a>
+        . Learn more in{" "}
+        <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener">
+          how Google uses cookies in advertising
+        </a>
+        . Visitors in the European Economic Area, the UK and Switzerland are asked for consent before personalized ads are
+        shown.
       </p>
       <h2>Contact</h2>
       <p>

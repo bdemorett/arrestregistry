@@ -35,6 +35,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Overpass:wght@700;800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         />
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${site.adsenseClient}`}
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <header className="site-header">
