@@ -20,14 +20,15 @@ export function countyMetadata(county: string): Metadata {
   const c = getCounty(county);
   if (!c?.detail) return {};
   const d = c.detail;
+  const place = seatLabel(c.name, c.seat);
   const title = d.roster
     ? d.warrants
-      ? `${c.name} County, MN Jail Roster, Warrant Search & Arrest Records`
-      : `${c.name} County, MN Jail Roster & Arrest Records Lookup`
-    : `${c.name} County, MN Arrest Records: Jail, Court & Sheriff Contacts`;
+      ? `${c.name} County${place}, MN Jail Roster, Warrants & Arrest Records`
+      : `${c.name} County${place}, MN Jail Roster & Arrest Records`
+    : `${c.name} County${place}, MN Arrest Records: Jail, Court & Sheriff Contacts`;
   const description = d.roster
-    ? `Official ${c.name} County jail roster link, how long records stay up, sheriff and courthouse contacts, and how to search court cases and convictions in Minnesota.`
-    : `${c.name} County doesn't post an online jail roster. Here's who to call, where the courthouse is, and how to search court cases and convictions for free.`;
+    ? `Official ${c.name} County jail roster link (${c.seat}, MN), how long records stay up, sheriff and courthouse contacts, and how to search court cases and convictions.`
+    : `${c.name} County (${c.seat}, MN) doesn't post an online jail roster. Here's who to call, where the courthouse is, and how to search court cases and convictions for free.`;
   return {
     title,
     description,
@@ -35,6 +36,13 @@ export function countyMetadata(county: string): Metadata {
     openGraph: { title, description, url: `/minnesota/${c.slug}/` },
   };
 }
+
+// Show the county seat in titles, unless it just repeats the county name.
+const seatLabel = (name: string, seat: string) =>
+  seat.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(seat.toLowerCase()) ? "" : ` (${seat})`;
+
+// Short names people search for
+const nicknames: Record<string, string> = { "Lac qui Parle": "LQP" };
 
 const ext = (url: string, text: string) => (
   <a href={url} target="_blank" rel="noopener">
@@ -110,6 +118,11 @@ export default function CountyPage({ county }: { county: string }) {
 
       <section className="facts" aria-label={`${c.name} County contacts`}>
         <dl>
+          <dt>County seat</dt>
+          <dd>
+            {c.seat}
+            {nicknames[c.name] ? ` (${c.name} County is often shortened to ${nicknames[c.name]})` : ""}
+          </dd>
           <dt>Sheriff</dt>
           <dd>{d.sheriffName}</dd>
           {d.jailName && (

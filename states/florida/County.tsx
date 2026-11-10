@@ -22,8 +22,9 @@ export function indexableSlugs() {
 export function countyMetadata(county: string): Metadata {
   const c = getFlCounty(county);
   if (!c?.detail) return {};
-  const title = `${c.name} County, FL Jail Roster & Arrest Records Lookup`;
-  const description = `Official ${c.name} County inmate search, who runs the jail, the clerk's court case search, and how to check Florida criminal history for free or at low cost.`;
+  const place = c.seat.toLowerCase().includes(c.name.toLowerCase()) || c.name.toLowerCase().includes(c.seat.toLowerCase()) ? "" : ` (${c.seat})`;
+  const title = `${c.name} County${place}, FL Jail Roster & Arrest Records`;
+  const description = `Official ${c.name} County (${c.seat}, FL) inmate search, who runs the jail, the clerk's court case search, and how to check Florida criminal history.`;
   return {
     title,
     description,
@@ -95,6 +96,8 @@ export default function FloridaCountyPage({ county }: { county: string }) {
 
       <section className="facts" aria-label={`${c.name} County contacts`}>
         <dl>
+          <dt>County seat</dt>
+          <dd>{c.seat}</dd>
           <dt>Sheriff</dt>
           <dd>{d.sheriffName}</dd>
           {d.jailOperator && (
