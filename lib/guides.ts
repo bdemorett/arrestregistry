@@ -5,6 +5,11 @@ export const guides = [
     blurb: "County rosters, state prison, federal custody, and what to do when you can't find someone.",
   },
   {
+    slug: "how-to-check-for-a-warrant",
+    title: "How to Find Out if You Have a Warrant",
+    blurb: "No national search exists. How to check county lists, court records and the clerk in any state.",
+  },
+  {
     slug: "check-for-warrant-minnesota",
     title: "How to Check for a Warrant in Minnesota",
     blurb: "Where county warrant lists live, what they miss, and what to do if you find one.",
@@ -31,8 +36,8 @@ export const guides = [
   },
   {
     slug: "remove-mugshot-from-internet",
-    title: "How to Get a Mugshot Removed From the Internet",
-    blurb: "Expungement, site removal requests, and Google's policy for sites that charge to remove.",
+    title: "How to Get Your Mugshot Off the Internet (for Free)",
+    blurb: "State laws that ban removal fees, how to ask a site to take it down, and Google's removal tools.",
   },
   {
     slug: "jail-roster-terms-glossary",

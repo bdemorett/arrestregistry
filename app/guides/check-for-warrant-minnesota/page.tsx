@@ -37,6 +37,9 @@ export default function Page() {
         },
       ]}
     >
+      <p className="note">
+        Outside Minnesota? See <Link href="/guides/how-to-check-for-a-warrant/">how to find out if you have a warrant in any state</Link>.
+      </p>
       <h2>Why there's no single search</h2>
       <p>
         A warrant is a court order, but it's entered and served by law enforcement. Minnesota doesn't publish a statewide

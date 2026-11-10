@@ -22,7 +22,7 @@ const groups: { heading: string; intro: string; slugs: string[] }[] = [
     heading: "Warrants and court dates",
     intro:
       "Most warrants come from a missed court date or an unpaid fine. These explain how to check for one and how to find the next hearing in a case.",
-    slugs: ["check-for-warrant-minnesota", "minnesota-court-date-lookup"],
+    slugs: ["how-to-check-for-a-warrant", "check-for-warrant-minnesota", "minnesota-court-date-lookup"],
   },
   {
     heading: "Your own record",
