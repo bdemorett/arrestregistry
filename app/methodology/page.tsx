@@ -3,6 +3,7 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { publishedCounties } from "@/data/states/minnesota/counties";
 import { flPublished } from "@/data/states/florida/counties";
+import { txPublished } from "@/data/states/texas/counties";
 import { formatDate, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -40,12 +41,14 @@ export default function Methodology() {
         <li>
           <strong>The court.</strong> In Minnesota, courthouse locations come from the Minnesota Judicial Branch, and court
           phone numbers are listed only where we confirmed the main number on mncourts.gov. In Florida, court records are
-          kept by each county's elected clerk, so we link the clerk's own case search.
+          kept by each county's elected clerk, so we link the clerk's own case search. In Texas, felony and misdemeanor cases
+          are usually kept by two different clerks, so we say which one holds what and link each search.
         </li>
         <li>
           <strong>Statewide rules.</strong> Statements about public records, bail, expungement, and court access cite that
-          state's statutes, court rules, and official agencies, such as Minnesota's BCA or the Florida Department of Law
-          Enforcement.
+          state's statutes, court rules, and official agencies, such as Minnesota's BCA, the Florida Department of Law
+          Enforcement or the Texas Department of Public Safety. Texas jail population figures come from the Texas Commission
+          on Jail Standards' monthly report.
         </li>
       </ol>
 
@@ -70,8 +73,9 @@ export default function Methodology() {
 
       <h2>Coverage</h2>
       <p>
-        {publishedCounties.length} of Minnesota's 87 counties and {flPublished.length} of Florida's 67 counties are published
-        so far. See the <Link href="/minnesota/">Minnesota</Link> and <Link href="/florida/">Florida</Link> county lists.
+        {publishedCounties.length} of Minnesota's 87 counties, {flPublished.length} of Florida's 67 counties and{" "}
+        {txPublished.length} of Texas's 254 counties are published so far. See the <Link href="/minnesota/">Minnesota</Link>,{" "}
+        <Link href="/florida/">Florida</Link> and <Link href="/texas/">Texas</Link> county lists.
       </p>
     </article>
   );

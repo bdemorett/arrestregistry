@@ -4,6 +4,7 @@ import CountyFinder from "@/components/CountyFinder";
 import JsonLd from "@/components/JsonLd";
 import { publishedCounties } from "@/data/states/minnesota/counties";
 import { flPublished } from "@/data/states/florida/counties";
+import { txPublished } from "@/data/states/texas/counties";
 import { guides } from "@/lib/guides";
 import { site } from "@/lib/site";
 
@@ -15,6 +16,7 @@ export default function Home() {
   const finderList = [
     ...publishedCounties.map((c) => ({ slug: c.slug, name: c.name, seat: c.seat, state: "minnesota", stateAbbr: "MN" })),
     ...flPublished.map((c) => ({ slug: c.slug, name: c.name, seat: c.seat, state: "florida", stateAbbr: "FL" })),
+    ...txPublished.map((c) => ({ slug: c.slug, name: c.name, seat: c.seat, state: "texas", stateAbbr: "TX" })),
   ].sort((a, b) => a.name.localeCompare(b.name) || a.stateAbbr.localeCompare(b.stateAbbr));
   return (
     <>
@@ -22,7 +24,7 @@ export default function Home() {
         <h1>Find where an arrest record lives</h1>
         <p className="lede">
           After an arrest, information can show up in three places, and each one publishes something different. We cover 85
-          of Minnesota's 87 counties and {flPublished.length} Florida counties so far, pointing you to the official source at each stop.
+          of Minnesota's 87 counties, {flPublished.length} Florida counties and {txPublished.length} of Texas's largest counties so far, pointing you to the official source at each stop.
           More counties and states are coming.
         </p>
         <ol className="line" aria-label="Where arrest information is published, in order">
@@ -53,8 +55,8 @@ export default function Home() {
         ))}
       </div>
       <p>
-        Browse <Link href="/guides/">all guides</Link>, the <Link href="/minnesota/">Minnesota overview</Link>, or the{" "}
-        <Link href="/florida/">Florida overview</Link>.
+        Browse <Link href="/guides/">all guides</Link> or the <Link href="/minnesota/">Minnesota</Link>,{" "}
+        <Link href="/florida/">Florida</Link> and <Link href="/texas/">Texas</Link> overviews.
       </p>
 
       <JsonLd

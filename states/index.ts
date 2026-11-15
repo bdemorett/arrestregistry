@@ -9,6 +9,8 @@ import MinnesotaHub, { hubMetadata as mnHubMetadata } from "@/states/minnesota/H
 import MinnesotaCounty, { countyMetadata as mnCountyMetadata, countySlugs as mnCountySlugs } from "@/states/minnesota/County";
 import FloridaHub, { hubMetadata as flHubMetadata } from "@/states/florida/Hub";
 import FloridaCounty, { countyMetadata as flCountyMetadata, countySlugs as flCountySlugs, indexableSlugs as flIndexableSlugs } from "@/states/florida/County";
+import TexasHub, { hubMetadata as txHubMetadata } from "@/states/texas/Hub";
+import TexasCounty, { countyMetadata as txCountyMetadata, countySlugs as txCountySlugs, indexableSlugs as txIndexableSlugs } from "@/states/texas/County";
 
 export type StateModule = {
   slug: string;
@@ -44,6 +46,17 @@ export const states: StateModule[] = [
     indexableSlugs: flIndexableSlugs,
     countyMetadata: flCountyMetadata,
     County: FloridaCounty,
+  },
+  {
+    slug: "texas",
+    name: "Texas",
+    abbr: "TX",
+    hubMetadata: txHubMetadata,
+    Hub: TexasHub,
+    countySlugs: txCountySlugs,
+    indexableSlugs: txIndexableSlugs,
+    countyMetadata: txCountyMetadata,
+    County: TexasCounty,
   },
 ];
 
