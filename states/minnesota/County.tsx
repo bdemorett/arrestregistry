@@ -27,7 +27,7 @@ export function countyMetadata(county: string): Metadata {
       : `${c.name} County${place}, MN Jail Roster & Arrest Records`
     : `${c.name} County${place}, MN Arrest Records: Jail, Court & Sheriff Contacts`;
   const description = d.roster
-    ? `Official ${c.name} County jail roster link (${c.seat}, MN), how long records stay up, sheriff and courthouse contacts, and how to search court cases and convictions.`
+    ? `Search the ${c.name} County jail roster (${c.seat}, MN): official inmate list link${d.warrants ? ", warrant list" : ""}, how long names stay up, sheriff phone, and free court case and court date lookups.`
     : `${c.name} County (${c.seat}, MN) doesn't post an online jail roster. Here's who to call, where the courthouse is, and how to search court cases and convictions for free.`;
   return {
     title,
@@ -183,7 +183,7 @@ export default function CountyPage({ county }: { county: string }) {
       </section>
 
       <div className="route">
-      <h2 className="station">Check whether someone is in custody</h2>
+      <h2 className="station">{c.name} County jail roster: who's in custody</h2>
       {d.roster && (
         <p>
           <span className="official">Official</span>
@@ -209,7 +209,7 @@ export default function CountyPage({ county }: { county: string }) {
         </p>
       )}
 
-      <h2>Warrant search</h2>
+      <h2>{c.name} County warrant search</h2>
       {d.warrants && (
         <p>
           <span className="official">Official</span>
@@ -229,7 +229,7 @@ export default function CountyPage({ county }: { county: string }) {
       </p>
 
 
-      <h2 className="station">Find the court case</h2>
+      <h2 className="station">{c.name} County court records and court dates</h2>
       {court && (
         <p>
           Criminal cases from {c.name} County are heard at the <strong>{court.name}</strong>, {court.address}

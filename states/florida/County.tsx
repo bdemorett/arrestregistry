@@ -158,7 +158,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
       </section>
 
       <div className="route">
-        <h2 className="station">Check whether someone is in custody</h2>
+        <h2 className="station">{c.name} County inmate search: who's in custody</h2>
         <p>
           <span className="official">Official</span>
           {ext(d.roster.url, d.roster.label)}
@@ -181,7 +181,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
 
         {d.warrants && (
           <>
-            <h2>Warrants</h2>
+            <h2>{c.name} County warrant search</h2>
             <p>
               <span className="official">Official</span>
               {ext(d.warrants.url, d.warrants.label)}
@@ -190,7 +190,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
           </>
         )}
 
-        <h2 className="station">Find the court case</h2>
+        <h2 className="station">{c.name} County court records and court dates</h2>
         <p>
           In Florida, each county's elected clerk keeps the court records. Criminal cases from {c.name} County are filed with
           the <strong>{d.clerk.name}</strong>{office ? `${office.address ? `, main office at ${office.address}` : ""}, ${office.phone}` : ""}. The clerk's main office
