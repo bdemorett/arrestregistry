@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell, { ext } from "@/components/GuideShell";
 import { mn } from "@/data/states/minnesota/resources";
+import MnCountyLinks from "@/components/MnCountyLinks";
 
 const slug = "minnesota-court-date-lookup";
 const title = "How to Look Up a Court Date in Minnesota";
@@ -74,6 +75,13 @@ export default function Page() {
           statewide records and show more than the website.
         </li>
       </ul>
+
+      <h2>Court date lookup by county</h2>
+      <p>
+        MCRO covers every county. Our county pages add the courthouse address (and phone, where the court lists one) and
+        the jail roster, which often lists the next court date for people in custody.
+      </p>
+      <MnCountyLinks />
 
       <div className="note">
         Missing a court date can lead to a warrant. If you think you've missed one, see{" "}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell, { ext } from "@/components/GuideShell";
 import { mn } from "@/data/states/minnesota/resources";
+import MnCountyLinks from "@/components/MnCountyLinks";
 
 const slug = "check-for-warrant-minnesota";
 const title = "How to Check for a Warrant in Minnesota";
@@ -59,6 +60,10 @@ export default function Page() {
         <li>They update on different schedules, some daily and some less often.</li>
         <li>A listing means a warrant was on file when the list was published. It isn't proof of guilt.</li>
       </ul>
+
+      <h3>Counties with an online warrant list</h3>
+      <p>Each link goes to our page for that county, with the official list and the sheriff's phone number.</p>
+      <MnCountyLinks only="warrants" />
 
       <h2>2. Call the sheriff's office</h2>
       <p>

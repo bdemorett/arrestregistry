@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell, { ext } from "@/components/GuideShell";
 import { mn } from "@/data/states/minnesota/resources";
+import MnCountyLinks from "@/components/MnCountyLinks";
 
 const slug = "find-out-if-someone-is-in-jail-minnesota";
 const title = "How to Find Out if Someone Is in Jail in Minnesota";
@@ -50,6 +51,9 @@ export default function Page() {
         A few small counties don't run their own jail. Rock County, for example, holds people at the Nobles County Jail, and
         Red Lake County uses a regional facility in Crookston. The county pages note this where it applies.
       </div>
+
+      <h3>Counties with an online jail roster</h3>
+      <MnCountyLinks only="roster" />
 
       <h2>2. If they're not on the roster, call the jail</h2>
       <p>
