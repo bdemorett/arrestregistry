@@ -2,6 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GuideShell, { ext } from "@/components/GuideShell";
 import { mn } from "@/data/states/minnesota/resources";
+import MnCountyLinks from "@/components/MnCountyLinks";
+
+const src = {
+  courtsFaq: { label: "Minnesota Judicial Branch: Criminal FAQs (posting bail, refunds)", url: "https://mncourts.gov/help-topics/criminal/faqs" },
+  ramsey: { label: "Ramsey County District Court: Warrants and Bail", url: "https://mncourts.gov/find-courts/ramsey/ramseycriminalcourt/criminal-and-traffic-court" },
+  hennepinSheriff: { label: "Hennepin County Sheriff: Post cash bail or bond for a detainee", url: "https://www.hennepinsheriff.org/en/jail-warrants/jail/Slide-out-group/post-cash-bail-bond-for-inmate" },
+  houseResearch: { label: "MN House Research: Bail and Pretrial Release in Minnesota", url: "https://www.house.mn.gov/hrd/pubs/ss/ssbailmn.pdf" },
+  ch60m: { label: "Minn. Stat. ch. 60M (bail bonds)", url: "https://www.revisor.mn.gov/statutes/cite/60M/full" },
+  rule702: { label: "Minn. Gen. R. Prac. 702 (bail, forfeiture, reinstatement)", url: "https://www.revisor.mn.gov/court_rules/rule/gp-702/" },
+  crm602: { label: "Form CRM602 instructions: Assignment of Bail to a Third Party", url: "https://www.mncourts.gov/mncourtsgov/media/CourtForms/CRM601.pdf?ext=.pdf" },
+};
 
 const slug = "how-bail-works-minnesota";
 const title = "How Bail Works in Minnesota";
@@ -9,7 +20,7 @@ const title = "How Bail Works in Minnesota";
 export const metadata: Metadata = {
   title,
   description:
-    "Minnesota's right to bail, release with or without conditions, bail schedules for misdemeanors, and how quickly an arrested person must see a judge.",
+    "How to post bail in Minnesota: cash bail vs. a bail bond, where and how to pay, getting bail money back, what judges weigh, and how fast someone sees a judge.",
   alternates: { canonical: `/guides/${slug}/` },
 };
 
@@ -20,8 +31,8 @@ export default function Page() {
       title={title}
       crumb="How bail works"
       legalNote
-      lede="Minnesota's constitution guarantees the right to have bail set. In practice, a judge picks between releasing someone outright, setting conditions, and setting a dollar amount. Here's how each works."
-      sources={[mn.lrlBail, mn.statute629, mn.rule4]}
+      lede="Minnesota's constitution guarantees the right to have bail set. Here's how a judge decides, the difference between cash bail and a bail bond, how to post either one, and how bail money comes back."
+      sources={[mn.lrlBail, mn.statute629, mn.rule4, src.courtsFaq, src.ramsey, src.hennepinSheriff, src.houseResearch, src.ch60m, src.rule702, src.crm602]}
       faqs={[
         {
           q: "Can a judge deny bail in Minnesota?",
@@ -32,8 +43,20 @@ export default function Page() {
           a: "When a judge allows release with conditions, Minnesota requires a second, bail-only amount as an alternative. Posting that higher amount lets the person go without the conditions.",
         },
         {
-          q: "Where do I post bail?",
-          a: "Usually at the county jail or courthouse. Each sheriff sets its own payment rules, so check the county page or call the jail first.",
+          q: "Where do I post bail in Minnesota?",
+          a: "At the jail holding the person or at any criminal court location where the case will be heard. Cash bail is cash only, and jails accept bonds only from state-approved bond agents. Call the jail first for the exact amount and its payment rules.",
+        },
+        {
+          q: "Do I get bail money back in Minnesota?",
+          a: "Cash bail can come back after the case ends, minus any fines or fees the court applies it to, but only when a judge orders the refund. The refund goes to the defendant by check, even if someone else posted it, unless the defendant signs a form assigning it to that person. A bail bond premium is never refunded.",
+        },
+        {
+          q: "How much does a bail bond cost in Minnesota?",
+          a: "Minnesota allows a bail bond company to charge a premium of up to 10% of the bail amount, and the premium isn't refunded. The company may also require collateral, which must be returned within 21 days after you give it written proof the bond was discharged.",
+        },
+        {
+          q: "What happens if someone misses court after posting bail?",
+          a: "The judge can forfeit the bail or bond, meaning the state keeps the full amount, and usually issues a warrant. A forfeiture can sometimes be reinstated if a petition is filed within 180 days, with a penalty of at least 10% of the bail.",
         },
       ]}
     >
@@ -74,6 +97,74 @@ export default function Page() {
         fine, with higher multiples allowed for some offenses like certain DWIs and domestic assaults.
       </p>
 
+      <h2>Cash bail vs. a bail bond</h2>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Cash bail</th>
+              <th>Bail bond</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>What you pay</td>
+              <td>The full bail amount, in cash</td>
+              <td>A premium to a bond company, up to 10% of the bail</td>
+            </tr>
+            <tr>
+              <td>Who pays it</td>
+              <td>Anyone: the person, family or friends</td>
+              <td>The bond company guarantees the full amount to the court</td>
+            </tr>
+            <tr>
+              <td>When the case ends</td>
+              <td>Refunded, or applied to fines and fees the person owes</td>
+              <td>The premium is not refunded; collateral comes back after the bond is discharged</td>
+            </tr>
+            <tr>
+              <td>If the person misses court</td>
+              <td>The state can keep all of it</td>
+              <td>The bond company pays the court and can collect on any collateral</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Bond companies must be approved by the judicial branch, and the courts can't recommend a particular one; the
+        judicial branch keeps a statewide list of approved bail bond agents ({ext(src.ramsey.url, "Ramsey County District Court")}).
+        A judge can set different amounts for each: for example, $1,000 cash bail with no conditions, or $300 with conditions.
+      </p>
+
+      <h2>How to post bail</h2>
+      <ol className="steps">
+        <li>
+          <strong>Get the amount and case number.</strong> Many county jail rosters list bail amounts, or call the jail with the
+          person's full name and date of birth.
+        </li>
+        <li>
+          <strong>Go to the jail or a criminal court location</strong> where the case will be heard. Cash bail is cash only,
+          and the jail accepts bonds only from state-approved bond agents ({ext(src.courtsFaq.url, "Minnesota Judicial Branch")}).
+        </li>
+        <li>
+          <strong>Bring the exact amount.</strong> In Hennepin County, for example, you can post bail 24 hours a day at the
+          Public Safety Facility, but staff can't make change and don't take checks or cards (bail information:
+          612-348-5112). In Ramsey County, call Adult Detention at 651-266-9350.
+        </li>
+      </ol>
+
+      <h2>Getting bail money back</h2>
+      <p>
+        Only a judge can order a bail refund, and it usually happens after the case is resolved. Any fines or fees can be
+        taken out first. Refunds are mailed as a check to the defendant, even if someone else posted the money, unless the
+        defendant files an <em>Assignment of Bail to a Third Party</em> (form CRM602) naming who should get it.
+      </p>
+      <p>
+        If the person misses a court date, the judge can forfeit the bail or bond. A forfeiture can be reinstated only if a
+        petition is filed within 180 days, and with a penalty of at least 10% of the bail ({ext(src.rule702.url, "General Rule of Practice 702")}).
+      </p>
+
       <h2>How fast someone sees a judge</h2>
       <ul>
         <li>
@@ -90,6 +181,10 @@ export default function Page() {
         That's why someone arrested on a Friday night may sit until Monday or Tuesday before a hearing. Check the{" "}
         <Link href="/minnesota/">county jail roster</Link>, since many list bail amounts and court dates.
       </p>
+
+      <h2>Find bail amounts by county</h2>
+      <p>These counties post an online jail roster, which often shows bail amounts and the next court date:</p>
+      <MnCountyLinks only="roster" />
 
       <h2>Speedy trial and release</h2>
       <p>
