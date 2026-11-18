@@ -51,7 +51,6 @@ export default function TexasCountyPage({ county }: { county: string }) {
   const path = `/texas/${c.slug}/`;
   const j = tcjsRows[c.name];
   const callPhone = d.jailPhone || d.infoPhone;
-  const others = txPublished.filter((o) => o.slug !== c.slug);
 
   const faqs: { q: string; a: string }[] = [
     {
@@ -61,20 +60,8 @@ export default function TexasCountyPage({ county }: { county: string }) {
         : `${c.name} County doesn't post an online jail roster.${callPhone ? ` Call ${callPhone}` : " Call the sheriff's office"} with the person's full name and date of birth.`,
     },
     {
-      q: "How long can someone be held before seeing a judge in Texas?",
-      a: "Under Texas Code of Criminal Procedure article 15.17, a person who is arrested must be taken before a magistrate without unnecessary delay, and no later than 48 hours after arrest. The magistrate explains the charges and rights and sets bail.",
-    },
-    {
       q: `How do I look up a ${c.name} County court case?`,
       a: `${d.courtNote} Use the ${d.courtSearch.map((l) => l.label).join(" or the ")}.`,
-    },
-    {
-      q: "Can you see someone's whole criminal record in Texas?",
-      a: "The Texas Department of Public Safety's public name search shows convictions and deferred adjudications reported to the state. It doesn't show arrests that never led to a conviction or deferred adjudication, or records that were expunged or sealed by an order of nondisclosure.",
-    },
-    {
-      q: "Can an arrest be removed from a Texas record?",
-      a: "Sometimes. An expunction destroys the records, and is usually for arrests that didn't lead to a conviction. An order of nondisclosure seals records from the public, often after deferred adjudication. Some first-time misdemeanors that end in deferred adjudication are sealed automatically.",
     },
   ];
 
@@ -153,10 +140,7 @@ export default function TexasCountyPage({ county }: { county: string }) {
             <li key={x}>{x}</li>
           ))}
         </ul>
-        <p className="muted">
-          A county search only covers that county's jail. Someone arrested in another county, held by a city jail before
-          transfer, or already sent to state prison won't show up. For prison, use the {ext(tx.tdcjSearch.url, "TDCJ Inmate Search")}.
-        </p>
+        <p className="muted">Only people held in this county's jail appear.</p>
 
         {(d.warrants || d.warrantNote) && (
           <>
@@ -169,8 +153,7 @@ export default function TexasCountyPage({ county }: { county: string }) {
             )}
             {d.warrantNote && <p>{d.warrantNote}</p>}
             <p className="muted">
-              Texas has no public statewide warrant search. Not being listed doesn't always mean there's no warrant, so confirm
-              with the sheriff's office. See <Link href="/guides/how-to-check-for-a-warrant/">how to check for a warrant</Link>.
+              Texas has no statewide public warrant search. <Link href="/guides/how-to-check-for-a-warrant/">How to check for a warrant</Link>.
             </p>
           </>
         )}
@@ -188,12 +171,6 @@ export default function TexasCountyPage({ county }: { county: string }) {
           </p>
         ))}
 
-        <h2 className="station">Check Texas criminal history</h2>
-        <p>
-          The Texas Department of Public Safety's {ext(tx.dpsSearch.url, "Conviction Name Search")} shows convictions and
-          deferred adjudications reported to the state, for a fee. It doesn't include arrests that never led to either, or
-          records that were expunged or sealed.
-        </p>
       </div>
 
       {j && !j.noJail && j.capacity ? (
@@ -212,10 +189,7 @@ export default function TexasCountyPage({ county }: { county: string }) {
               can tell you where.
             </p>
           ) : null}
-          <p className="muted">
-            From the commission's monthly population report. Totals can include people held for other agencies, such as
-            federal detainees.
-          </p>
+          <p className="muted">Texas Commission on Jail Standards monthly report.</p>
         </>
       ) : null}
 
@@ -230,15 +204,13 @@ export default function TexasCountyPage({ county }: { county: string }) {
       </p>
       <ul>
         <li>
-          <strong>The court case:</strong> search the county's court records by name ({ext(d.courtSearch[0].url, d.courtSearch[0].label)}).
-          Closed cases show the charges and how the case ended.
+          <strong>The court case:</strong> {ext(d.courtSearch[0].url, d.courtSearch[0].label)}, by name.
         </li>
         <li>
-          <strong>Statewide history:</strong> the {ext(tx.dpsSearch.url, "DPS Conviction Name Search")} shows convictions and
-          deferred adjudications anywhere in Texas.
+          <strong>Convictions statewide:</strong> the {ext(tx.dpsSearch.url, "DPS Conviction Name Search")}.
         </li>
         <li>
-          <strong>Sent to prison or state jail:</strong> check the {ext(tx.tdcjSearch.url, "TDCJ Inmate Search")}.
+          <strong>Prison or state jail:</strong> the {ext(tx.tdcjSearch.url, "TDCJ Inmate Search")}.
         </li>
       </ul>
 
@@ -255,9 +227,9 @@ export default function TexasCountyPage({ county }: { county: string }) {
 
       <SearchCta placement="county-mid" county={c.name} />
 
-      <p>
-        An arrest isn't a conviction. Arrest Registry doesn't post booking photos;{" "}
-        <Link href="/guides/remove-mugshot-from-internet/">here's how to get one removed</Link>.
+      <p className="muted">
+        An arrest isn't a conviction. Statewide rules on bail, expunction and nondisclosure are in the{" "}
+        <Link href="/texas/">Texas overview</Link>.
       </p>
 
       <section className="faq">
@@ -270,30 +242,9 @@ export default function TexasCountyPage({ county }: { county: string }) {
         ))}
       </section>
 
-      <h2>Helpful guides</h2>
-      <div className="cards">
-        <Link className="card" href="/texas/">
-          <strong>Texas arrest records overview</strong>
-          <span>What's public, the two clerks, expunction and nondisclosure</span>
-        </Link>
-        <Link className="card" href="/guides/how-to-check-for-a-warrant/">
-          <strong>How to check for a warrant</strong>
-          <span>Where warrant lists are and aren't public</span>
-        </Link>
-        <Link className="card" href="/guides/jail-roster-terms-glossary/">
-          <strong>Jail roster terms</strong>
-          <span>What common booking terms mean</span>
-        </Link>
-      </div>
-
-      <h2>Other Texas counties</h2>
-      <ul className="county-grid">
-        {others.map((o) => (
-          <li key={o.slug}>
-            <Link href={`/texas/${o.slug}/`}>{o.name} County</Link>
-          </li>
-        ))}
-      </ul>
+      <p>
+        <Link href="/texas/">All Texas counties</Link> · <Link href="/guides/jail-roster-terms-glossary/">Jail roster terms</Link>
+      </p>
 
       <Sources items={[...d.sources, tx.tcjs, tx.dpsSearch, tx.ccp1517, tx.sealing, tx.tdcjSearch]} reviewed={d.verified} />
 

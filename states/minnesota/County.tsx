@@ -84,10 +84,6 @@ export default function CountyPage({ county }: { county: string }) {
         ]
       : []),
     {
-      q: `How do I find someone who was released from the ${c.name} County jail?`,
-      a: `${releaseLine} For an older arrest, search the court case in Minnesota Court Records Online, check convictions in the BCA's free Public Criminal History Search, or ask the ${d.sheriffName} for the booking record. Basic arrest data is public under Minn. Stat. § 13.82.`,
-    },
-    {
       q: `Does ${c.name} County post a warrant list?`,
       a: d.warrants
         ? `Yes. The ${d.warrants.label} is published online. Lists can lag, so confirm with the sheriff's office.`
@@ -197,9 +193,8 @@ export default function CountyPage({ county }: { county: string }) {
       </ul>
       {!d.contractJail && d.roster && (
         <p className="muted">
-          The roster only covers people booked into this jail. Arrests in other counties, or people sent straight to state
-          prison, won't appear. See <Link href="/guides/find-out-if-someone-is-in-jail-minnesota/">how to find someone in custody</Link>{" "}
-          for the other places to check.
+          Only people booked into this jail appear.{" "}
+          <Link href="/guides/find-out-if-someone-is-in-jail-minnesota/">Other places to check</Link>.
         </p>
       )}
       {!d.roster && !d.contractJail && (
@@ -224,8 +219,7 @@ export default function CountyPage({ county }: { county: string }) {
         </p>
       )}
       <p className="muted">
-        Minnesota has no public statewide warrant search, so each county's list only covers its own warrants. Not being
-        listed doesn't always mean there's no warrant. See <Link href="/guides/check-for-warrant-minnesota/">how to check for a warrant</Link>.
+        Minnesota has no statewide public warrant search. <Link href="/guides/check-for-warrant-minnesota/">How to check for a warrant</Link>.
       </p>
 
 
@@ -243,17 +237,8 @@ export default function CountyPage({ county }: { county: string }) {
         </p>
       )}
       <p>
-        Search the case in {ext(mn.mcro.url, "Minnesota Court Records Online")}. Open criminal cases don't come up by name,
-        only by case number, which is usually on the roster or charging paperwork. The public terminals at the courthouse
-        search statewide and show more than the website. More in{" "}
-        <Link href="/guides/minnesota-court-date-lookup/">how to look up a court date</Link>.
-      </p>
-
-      <h2 className="station">Check conviction history</h2>
-      <p>
-        The BCA's free {ext(mn.bcaSearch.url, "Public Criminal History Search")} shows Minnesota convictions for 15 years
-        after a sentence ends. It doesn't show arrests without a conviction. See{" "}
-        <Link href="/guides/are-arrest-records-public-in-minnesota/">what's public in Minnesota</Link>.
+        Search {ext(mn.mcro.url, "Minnesota Court Records Online")} by case number.{" "}
+        <Link href="/guides/minnesota-court-date-lookup/">How to find a court date</Link>.
       </p>
       </div>
 
@@ -261,16 +246,13 @@ export default function CountyPage({ county }: { county: string }) {
       <p>{releaseLine} To find an older arrest:</p>
       <ul>
         <li>
-          <strong>The court case:</strong> search {ext(mn.mcro.url, "Minnesota Court Records Online")}. Not every criminal case
-          shows up in an online name search, so if you don't find it, the public terminals at any Minnesota courthouse show more.
+          <strong>The court case:</strong> {ext(mn.mcro.url, "Minnesota Court Records Online")} or the courthouse public terminals.
         </li>
         <li>
-          <strong>Convictions:</strong> the BCA's free {ext(mn.bcaSearch.url, "Public Criminal History Search")} covers convictions
-          for 15 years after the sentence ends.
+          <strong>Convictions:</strong> the BCA's free {ext(mn.bcaSearch.url, "Public Criminal History Search")}.
         </li>
         <li>
-          <strong>The booking record:</strong> basic arrest and booking data is public under{" "}
-          {ext(mn.statute1382.url, "Minn. Stat. § 13.82")}. Ask the {d.sheriffName}'s records office for it.
+          <strong>The booking record:</strong> ask the {d.sheriffName}'s records office ({ext(mn.statute1382.url, "§ 13.82")}).
         </li>
         <li>
           <strong>Sent to prison:</strong> check the {ext(mn.docLocator.url, "Minnesota DOC Offender Locator")}.
@@ -291,11 +273,9 @@ export default function CountyPage({ county }: { county: string }) {
 
       <SearchCta placement="county-mid" county={c.name} />
 
-      <p>
-        An arrest isn't a conviction, and many Minnesota records are now sealed automatically under the Clean Slate Act. See{" "}
-        <Link href="/guides/arrest-vs-conviction-records/">arrest vs. conviction records</Link> and{" "}
-        <Link href="/guides/minnesota-expungement-clean-slate/">Minnesota expungement</Link>. Arrest Registry doesn't post
-        booking photos; <Link href="/guides/remove-mugshot-from-internet/">here's how to get one removed</Link>.
+      <p className="muted">
+        An arrest isn't a conviction. See <Link href="/guides/minnesota-expungement-clean-slate/">Clean Slate sealing</Link> and{" "}
+        <Link href="/guides/remove-mugshot-from-internet/">removing a mugshot</Link>.
       </p>
 
       <section className="faq">

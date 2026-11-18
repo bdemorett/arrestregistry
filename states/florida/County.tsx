@@ -64,16 +64,8 @@ export default function FloridaCountyPage({ county }: { county: string }) {
         : `The ${d.sheriffName}. In most Florida counties the sheriff runs the jail.`,
     },
     {
-      q: `How do I find someone who was released from the ${c.name} County jail?`,
-      a: `${d.pastSearch ? `The ${d.roster.label} ${d.pastSearch}.` : `The ${d.roster.label} mainly lists people in custody now.`} For an older arrest, search the ${d.clerk.search.label} by name, or use FDLE's statewide criminal history search ($24), which covers Florida arrests and outcomes unless the record was sealed or expunged.`,
-    },
-    {
       q: `How do I look up a ${c.name} County court case?`,
       a: `Criminal cases are filed with the ${d.clerk.name}. Use the ${d.clerk.search.label} to find charges, hearings and outcomes.${office ? ` For help, call the clerk's office at ${office.phone}.` : ""} Some documents are confidential and won't show online.`,
-    },
-    {
-      q: "Will an arrest stay on someone's record if the charges were dropped?",
-      a: "Not always. Florida automatically seals many state criminal history records when no charges were filed, the charges were dismissed, or the person was found not guilty. Some serious offenses are excluded, and older or ineligible records may need a court-ordered sealing or expunction.",
     },
   ];
 
@@ -154,6 +146,14 @@ export default function FloridaCountyPage({ county }: { county: string }) {
           )}
           <dt>Court circuit</dt>
           <dd>{circuitName(c.circuit)}</dd>
+          {bk && (
+            <>
+              <dt>Arrests booked</dt>
+              <dd>
+                {bk.y2025 ? `About ${n(bk.y2025)} in 2025` : `About ${n(bk.y2024!)} in 2024`} (FDLE)
+              </dd>
+            </>
+          )}
         </dl>
       </section>
 
@@ -174,10 +174,7 @@ export default function FloridaCountyPage({ county }: { county: string }) {
             <li key={n}>{n}</li>
           ))}
         </ul>
-        <p className="muted">
-          A county search only covers that county's jail. Someone arrested elsewhere, or already sent to state prison, won't
-          show up here. For prison, use the {ext(fl.fdcSearch.url, "Florida Department of Corrections Offender Search")}.
-        </p>
+        <p className="muted">Only people held in this county's jail appear.</p>
 
         {d.warrants && (
           <>
@@ -200,18 +197,8 @@ export default function FloridaCountyPage({ county }: { county: string }) {
           <span className="official">Official</span>
           {ext(d.clerk.search.url, d.clerk.search.label)}
         </p>
-        <p>
-          Florida court records are generally public, so a name search usually shows open and closed cases with charges,
-          hearing dates and outcomes. Sealed and expunged cases, and some confidential documents, won't appear. To search all
-          67 counties at once, the clerks offer {ext(fl.caseAccess.url, "CaseAccess")}, a paid subscription through the
-          Florida Courts E-Filing Portal.
-        </p>
-
-        <h2 className="station">Check Florida criminal history</h2>
-        <p>
-          The Florida Department of Law Enforcement sells a statewide {ext(fl.fdleSearch.url, "criminal history search")} for
-          $24 per name, plus a $1 card fee online. It covers Florida records, not other states, and sealed or expunged records
-          aren't released.
+        <p className="muted">
+          To search every Florida county at once, see {ext(fl.caseAccess.url, "CaseAccess")} (paid subscription).
         </p>
       </div>
 
@@ -268,16 +255,13 @@ export default function FloridaCountyPage({ county }: { county: string }) {
       </p>
       <ul>
         <li>
-          <strong>The court case:</strong> search the {ext(d.clerk.search.url, d.clerk.search.label)} by name. Closed cases
-          show the charges and how the case ended.
+          <strong>The court case:</strong> the {ext(d.clerk.search.url, d.clerk.search.label)}, by name.
         </li>
         <li>
-          <strong>Statewide history:</strong> the {ext(fl.fdleSearch.url, "FDLE criminal history search")} covers arrests and
-          outcomes across Florida for $24, unless the record was sealed or expunged.
+          <strong>Statewide history:</strong> the {ext(fl.fdleSearch.url, "FDLE criminal history search")} ($24).
         </li>
         <li>
-          <strong>The booking record:</strong> arrest records are generally public under Florida's public records law, so you
-          can ask the {d.jailOperator ?? d.sheriffName} for a copy.
+          <strong>The booking record:</strong> request it from the {d.jailOperator ?? d.sheriffName}.
         </li>
         <li>
           <strong>Sent to prison:</strong> check the {ext(fl.fdcSearch.url, "Florida Department of Corrections Offender Search")}.
@@ -298,10 +282,8 @@ export default function FloridaCountyPage({ county }: { county: string }) {
       <SearchCta placement="county-mid" county={c.name} />
 
       <p>
-        An arrest isn't a conviction. Florida also limits what booking photo sites can do: under{" "}
-        {ext(fl.statute90143.url, "Fla. Stat. § 901.43")}, a site that publishes mugshots can't charge to remove one and must take
-        it down within 10 days of a written request sent by registered mail. Arrest Registry doesn't post booking photos;{" "}
-        <Link href="/guides/remove-mugshot-from-internet/">here's how to get one removed</Link>.
+        An arrest isn't a conviction. Florida limits mugshot sites ({ext(fl.statute90143.url, "§ 901.43")});{" "}
+        <Link href="/guides/remove-mugshot-from-internet/">how to get one removed</Link>.
       </p>
 
       <section className="faq">
