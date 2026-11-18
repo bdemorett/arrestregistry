@@ -16,7 +16,7 @@ const groups: { heading: string; intro: string; slugs: string[] }[] = [
     heading: "Someone was just arrested",
     intro:
       "Start here if a friend or family member was picked up. These cover finding out where they're held, how release works, and when they'll see a judge.",
-    slugs: ["find-out-if-someone-is-in-jail-minnesota", "how-bail-works-minnesota", "jail-roster-terms-glossary", "find-someone-in-minnesota-prison"],
+    slugs: ["what-happens-after-arrest", "find-out-if-someone-is-in-jail-minnesota", "how-bail-works-minnesota", "jail-roster-terms-glossary", "find-someone-in-minnesota-prison"],
   },
   {
     heading: "Warrants and court dates",

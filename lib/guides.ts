@@ -1,5 +1,10 @@
 export const guides = [
   {
+    slug: "what-happens-after-arrest",
+    title: "What Happens After Someone Is Arrested: The First 48 Hours",
+    blurb: "Booking, when someone shows up on the roster, the 48-hour rule, bail, and what family can do.",
+  },
+  {
     slug: "find-out-if-someone-is-in-jail-minnesota",
     title: "How to Find Out if Someone Is in Jail in Minnesota",
     blurb: "County rosters, state prison, federal custody, and what to do when you can't find someone.",
