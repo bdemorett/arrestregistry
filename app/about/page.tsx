@@ -15,8 +15,20 @@ export default function About() {
       <Breadcrumbs items={[{ name: "About", href: "/about/" }]} />
       <h1>About Arrest Registry</h1>
       <p className="lede">
-        Arrest Registry is a set of guides that explain where arrest, jail, and court records live and how to use the
-        official tools to find them.
+        Arrest Registry is a free guide to where arrest, jail and court records actually live, and how to use the official
+        tools to find them. It covers Minnesota, Florida and Texas so far, county by county.
+      </p>
+
+      <h2>Who runs it</h2>
+      <p>
+        Arrest Registry was founded in 2026 by Ben DeMorett, who runs it through {site.owner}, a small Minnesota company
+        that publishes reference websites. Ben is the site's editor and is responsible for what it publishes.
+      </p>
+      <p>
+        The idea came from a simple problem. When someone you know is arrested, the information you need is spread across a
+        sheriff's roster, one or two court clerks and a state records agency, each with its own website and rules. Searching
+        for it mostly turns up mugshot sites and paid lookup pages. Arrest Registry puts the official sources for each county
+        in one place and explains what each one shows and what it leaves out.
       </p>
 
       <h2>What we publish</h2>
@@ -46,7 +58,16 @@ export default function About() {
         <Link href="/affiliate-disclosure/">affiliate disclosure</Link>.
       </p>
 
-      <p className="muted">Arrest Registry is operated by {site.owner}, a Minnesota company.</p>
+      <h2>Corrections</h2>
+      <p>
+        Government websites change often. If a link is broken, a phone number is wrong or a detail is out of date, email{" "}
+        <a href={`mailto:${site.email}`}>{site.email}</a> with the page and what changed. We check the official source and
+        update the page, along with its "last checked" date.
+      </p>
+
+      <p className="muted">
+        Arrest Registry is published by {site.owner}, Minnesota. Editor: Ben DeMorett.
+      </p>
     </article>
   );
 }
